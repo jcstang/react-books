@@ -49,7 +49,7 @@ export default function searchBooks(props) {
                     <input
                         type="text"
                         name="petName"
-                        value={petState.petName}
+                        value={petNameState}
                         onChange={handleInputUpdate}
                         placeholder="Pet Name" />
                 </section>
