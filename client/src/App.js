@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import SearchBooks from './components/pages/searchBooks';
 import axios from 'axios';
 
 class App extends Component {
@@ -29,31 +31,11 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Pet Saver</h1>
-
-        <form onSubmit={this.handleFormSubmit}>
-          <section>
-            <input
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleInputUpdate}
-              placeholder="Pet Name" />
-          </section>
-          <section>
-            <input
-              type="text"
-              name="type"
-              value={this.state.type}
-              onChange={this.handleInputUpdate}
-              placeholder="Kind Of Pet" />
-          </section>
-          <section>
-            <button>Save this pet!</button>
-          </section>
-        </form>
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" component={SearchBooks} />
+        </div>
+      </Router>
     );
   }
 }

@@ -39,6 +39,7 @@ app.post('/savePet', function(request, response) {
     })
     .catch(function() {
       console.log('Something went wrong while creating a pet record');
+      response.status(400).end();
     });
 });
 
