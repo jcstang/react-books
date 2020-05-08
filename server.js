@@ -4,9 +4,10 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 const mongoose = require('mongoose');
-const Housepet = require()
-mongoose.connect("mongodb://localhost/pets", { useNewUrlParser: true });
-const
+
+const Housepet = require('./models/Housepets');
+
+mongoose.connect("mongodb://localhost/Pets", { useNewUrlParser: true });
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -18,8 +19,21 @@ if (process.env.NODE_ENV === "production") {
 
 // Define API routes here
 
-app.get('/mongoose', (request, response) => {
-  House
+// test endpoint to ensure mongoose works
+app.get('/mongoose', function (request, response) {
+  // response.send('Moose bites can be pretti nasti');
+  Housepet
+    .find({})
+    .then(function (data) {
+      response.json(data);
+    });
+});
+
+app.get('/api/someData', function (request, response) {
+  response.json({
+    foo: 'bar',
+    baz: 'quux'
+  })
 });
 
 // Send every other request to the React app

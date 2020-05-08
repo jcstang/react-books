@@ -3,16 +3,29 @@ import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(`hi ${Date.now()}`);
+    
+  }
+
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <h1>Pet Saver</h1>
+
+        <form onSubmit={this.handleFormSubmit}>
+          <section>
+            <input type="text" name="name" placeholder="your pets name here" />
+          </section>
+          <section>
+            <input type="text" name="type" placeholder="what kind of pet" />
+          </section>
+          <section>
+            <button>Save this pet!</button>
+          </section>
+        </form>
       </div>
     );
   }
