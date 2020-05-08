@@ -29,6 +29,19 @@ app.get('/mongoose', function (request, response) {
     });
 });
 
+app.post('/savePet', function(request, response) {
+  const petData = request.body;
+
+  Housepet
+    .create(petData)
+    .then(function() {
+      response.status(200).end();
+    })
+    .catch(function() {
+      console.log('Something went wrong while creating a pet record');
+    });
+});
+
 app.get('/api/someData', function (request, response) {
   response.json({
     foo: 'bar',
