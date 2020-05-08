@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function searchBooks(props) {
+export default function SearchBooks(props) {
 
     // const [ petState, setPetState ] = useState({
     //     petName: '',

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SearchBooks from './components/pages/searchBooks';
+import SavedBooks from './components/pages/savedBooks';
 import axios from 'axios';
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
       <Router>
         <div>
           <Route exact path="/" component={SearchBooks} />
+          <Route exact path="/saved-books" component={SavedBooks} />
         </div>
       </Router>
     );
