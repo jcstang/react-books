@@ -9,15 +9,15 @@ export default function BookListCard() {
                     <h2>Book name</h2>
                 </div>
                 <div className="col-2 card-body align-self-end">
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-warning">View</button>
-                        <button type="button" class="btn btn-info">Save</button>
+                    <div className="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                        <button type="button" className="btn btn-warning">View</button>
+                        <button type="button" className="btn btn-info">Save</button>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="card-body col-2">
-                    <img src="https://via.placeholder.com/150" />
+                    <img src="https://via.placeholder.com/150" alt="book cover" />
                 </div>
                 <div className="col-10 card-body align-self-end">
                     <p>
