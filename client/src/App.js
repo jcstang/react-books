@@ -1,13 +1,30 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import axios from 'axios';
 
 class App extends Component {
 
+  state = {
+    name: '',
+    type: ''
+  }
+
   handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(`hi ${Date.now()}`);
-    
+
+    axios
+      .post('/savePet', this.state)
+      .then(function() {
+        console.log('it worked!');
+      })
+      .catch(function() {
+        console.log('it broke');
+      });
+  }
+
+  handleInputUpdate = (event) => {
+    const { name, value } = event.target;
+
+    this.setState({ [name]: value });
   }
 
   render() {
@@ -17,10 +34,20 @@ class App extends Component {
 
         <form onSubmit={this.handleFormSubmit}>
           <section>
-            <input type="text" name="name" placeholder="your pets name here" />
+            <input
+              type="text"
+              name="name"
+              value={this.state.name}
+              onChange={this.handleInputUpdate}
+              placeholder="Pet Name" />
           </section>
           <section>
-            <input type="text" name="type" placeholder="what kind of pet" />
+            <input
+              type="text"
+              name="type"
+              value={this.state.type}
+              onChange={this.handleInputUpdate}
+              placeholder="Kind Of Pet" />
           </section>
           <section>
             <button>Save this pet!</button>
