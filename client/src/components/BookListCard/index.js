@@ -11,7 +11,7 @@ export default function BookListCard() {
                 <div className="col-2 card-body align-self-end">
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-warning">View</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-info">Save</button>
                     </div>
                 </div>
             </div>
