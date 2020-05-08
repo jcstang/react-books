@@ -7,7 +7,7 @@ class SavedBooks extends Component {
         super(props);
 
         this.state = {
-            defaultImageUrl: "https://source.unsplash.com/sfL_QOnmy00/200x200",
+            defaultImageUrl: "https://source.unsplash.com/sfL_QOnmy00/250x300",
             listOfSavedBooks: [
                 {
                     title: 'The Hunger Games',
@@ -32,6 +32,22 @@ class SavedBooks extends Component {
                 }
             ]
         }
+    }
+
+    componentWillMount() {
+        // go get data from mongodb first?
+        // TODO: go get mongo data
+        const updatedBooks = [...this.state.listOfSavedBooks, {
+            title: 'Harry Potter and the Chamber of Secrets',
+            authors: ["JK Rowling"],
+            description: "",
+            imageUrl: "",
+            bookUrl: ""
+        }];
+
+        this.setState({
+            listOfSavedBooks: updatedBooks
+        });
     }
 
 

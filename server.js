@@ -17,11 +17,11 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Define API routes here
 
 // test endpoint to ensure mongoose works
 app.get('/mongoose', function (request, response) {
   // response.send('Moose bites can be pretti nasti');
+  // TODO: make a new model
   Housepet
     .find({})
     .then(function (data) {
@@ -45,18 +45,31 @@ app.post('/savePet', function(request, response) {
     });
 });
 
-app.get('/api/someData', function (request, response) {
-  response.json({
-    foo: 'bar',
-    baz: 'quux'
-  })
+app.get('/api/saved-books', (req, res) => {
+  // TODO: go get books from mongo
+  // TODO: return all saved books
 });
 
+app.post('/api/books', (req, res) => {
+  // TODO: save a new book to the DB
+});
+
+app.delete('/api/books/:id', (req, res) => {
+  // TODO: delete specific book, by _id
+});
+
+// app.get('/api/someData', function (request, response) {
+//   response.json({
+//     foo: 'bar',
+//     baz: 'quux'
+//   })
+// });
+
 // Send every other request to the React app
-// Define any API routes before this runs
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
+
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
