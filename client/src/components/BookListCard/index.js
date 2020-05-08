@@ -2,6 +2,8 @@ import React from 'react';
 import './index.css';
 
 export default function BookListCard() {
+    /* TODO: optional - cards have a fight when they are on mobile  */
+    
     return (
         <div className="container-fluid card">
             <div className="row">
