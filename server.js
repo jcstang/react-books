@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 const Housepet = require('./models/Housepets');
 
-mongoose.connect("mongodb://localhost/Pets", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/pets", { useNewUrlParser: true });
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -31,6 +31,8 @@ app.get('/mongoose', function (request, response) {
 
 app.post('/savePet', function(request, response) {
   const petData = request.body;
+
+  console.log(petData);
 
   Housepet
     .create(petData)

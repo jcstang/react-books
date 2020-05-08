@@ -27,10 +27,13 @@ export default function searchBooks(props) {
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
-        console.log(petState);
+        const sendingData = {
+            petName: petNameState,
+            type: petTypeState
+        }
 
         axios
-            .post('/savePet', petState)
+            .post('/savePet', sendingData)
             .then(function() {
                 console.log('it worked!');
             })
@@ -50,15 +53,15 @@ export default function searchBooks(props) {
                         type="text"
                         name="petName"
                         value={petNameState}
-                        onChange={handleInputUpdate}
+                        onChange={event => setPetNameState(event.target.value)}
                         placeholder="Pet Name" />
                 </section>
                 <section>
                     <input
                         type="text"
                         name="type"
-                        value={petState.type}
-                        onChange={handleInputUpdate}
+                        value={petTypeState}
+                        onChange={event => setTypeState(event.target.value)}
                         placeholder="Kind Of Pet" />
                 </section>
                 <section>

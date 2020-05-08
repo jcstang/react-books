@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const HousepetSchema = new Schema({
-  name: String,
+  petName: String,
   type: String
 });
 
