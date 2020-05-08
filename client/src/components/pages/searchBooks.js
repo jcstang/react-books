@@ -1,28 +1,11 @@
 import React, { useState } from 'react';
+import ResultsBookList from '../ResultsBookList';
 import axios from 'axios';
 
 export default function SearchBooks(props) {
 
-    // const [ petState, setPetState ] = useState({
-    //     petName: '',
-    //     type: ''
-    // });
-
     const [ petNameState, setPetNameState ] = useState('');
     const [ petTypeState, setTypeState ] = useState('');
-
-    // const handleInputUpdate = (event) => {
-    //     const { name, value } = event.target;
-
-    //     console.log(event.target);
-    //     console.log(name);
-    //     console.log(value);
-
-    //     setPetState({ 
-    //         [name]: value
-    //     });
-    //     console.log(petState);
-    // }
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -44,30 +27,32 @@ export default function SearchBooks(props) {
 
 
     return (
-        <div>
-            <h1>Pet Saver</h1>
-
-            <form onSubmit={handleFormSubmit}>
-                <section>
-                    <input
-                        type="text"
-                        name="petName"
-                        value={petNameState}
-                        onChange={event => setPetNameState(event.target.value)}
-                        placeholder="Pet Name" />
-                </section>
-                <section>
-                    <input
-                        type="text"
-                        name="type"
-                        value={petTypeState}
-                        onChange={event => setTypeState(event.target.value)}
-                        placeholder="Kind Of Pet" />
-                </section>
-                <section>
-                    <button>Save this pet!</button>
-                </section>
-            </form>
+        <div className="container">
+            <div className="jumbotron">
+                <h1>Pet Saver</h1>
+                <form onSubmit={handleFormSubmit}>
+                    <section>
+                        <input
+                            type="text"
+                            name="petName"
+                            value={petNameState}
+                            onChange={event => setPetNameState(event.target.value)}
+                            placeholder="Pet Name" />
+                    </section>
+                    <section>
+                        <input
+                            type="text"
+                            name="type"
+                            value={petTypeState}
+                            onChange={event => setTypeState(event.target.value)}
+                            placeholder="Kind Of Pet" />
+                    </section>
+                    <section>
+                        <button>Save this pet!</button>
+                    </section>
+                </form>
+            </div>
+            <ResultsBookList />
         </div>
     );
 }
