@@ -29,7 +29,9 @@ export default function SearchBooks(props) {
     return (
         <div className="container">
             <div className="jumbotron">
-                <h1>Pet Saver</h1>
+                <h1 className="display-4">ReactReactGo</h1>
+                <p className="lead">Search for and save books of interest</p>
+                <hr className="my-4" />
                 <form onSubmit={handleFormSubmit}>
                     <section>
                         <input
