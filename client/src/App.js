@@ -12,18 +12,18 @@ class App extends Component {
     type: ''
   }
 
-  handleFormSubmit = (event) => {
-    event.preventDefault();
+  // handleFormSubmit = (event) => {
+  //   event.preventDefault();
 
-    axios
-      .post('/savePet', this.state)
-      .then(function() {
-        console.log('it worked!');
-      })
-      .catch(function() {
-        console.log('it broke');
-      });
-  }
+  //   axios
+  //     .post('/savePet', this.state)
+  //     .then(function() {
+  //       console.log('it worked!');
+  //     })
+  //     .catch(function() {
+  //       console.log('it broke');
+  //     });
+  // }
 
   handleInputUpdate = (event) => {
     const { name, value } = event.target;

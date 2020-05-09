@@ -7,6 +7,6 @@ const HousepetSchema = new Schema({
   type: String
 });
 
-const Housepet = mongoose.model('Housepet', HousepetSchema);
+const Housepet = mongoose.model('doggydog', HousepetSchema);
 
 module.exports = Housepet;

@@ -5,8 +5,9 @@ const app = express();
 
 const mongoose = require('mongoose');
 
-const Housepet = require('./models/Housepets');
 
+// TODO: change to books model and books db
+const Housepet = require('./models/Housepets');
 mongoose.connect("mongodb://localhost/pets", { useNewUrlParser: true });
 
 // Define middleware here
@@ -45,9 +46,10 @@ app.post('/savePet', function(request, response) {
     });
 });
 
+
 app.get('/api/saved-books', (req, res) => {
   // TODO: go get books from mongo
-  // TODO: return all saved books
+  // TODO: return all SAVED books
 });
 
 app.post('/api/books', (req, res) => {
