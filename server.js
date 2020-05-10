@@ -21,18 +21,18 @@ if (process.env.NODE_ENV === "production") {
 
 
 // test endpoint to ensure mongoose works
-app.get('/mongoose', function (request, response) {
-  // response.send('Moose bites can be pretti nasti');
-  // TODO: make a new model
-  Book
-    .find({})
-    .then(function (data) {
-      response.json(data);
-    })
-    .catch(function(err) {
-      response.end('hi');
-    })
-});
+// app.get('/mongoose', function (request, response) {
+//   // response.send('Moose bites can be pretti nasti');
+//   // TODO: make a new model
+//   Book
+//     .find({})
+//     .then(function (data) {
+//       response.json(data);
+//     })
+//     .catch(function(err) {
+//       response.end('hi');
+//     })
+// });
 
 // app.post('/savePet', function(request, response) {
 //   const petData = request.body;
@@ -52,12 +52,10 @@ app.get('/mongoose', function (request, response) {
 
 
 app.get('/api/saved-books', (req, res) => {
-  // TODO: go get books from mongo
-  // TODO: return all SAVED books
   Book
     .find({})
     .then(function (data) {
-      res.json(data);
+      res.status(200).json(data);
     })
     .catch(function() {
       res.status(400).end('bad things');
@@ -66,7 +64,19 @@ app.get('/api/saved-books', (req, res) => {
 
 app.post('/api/books', (req, res) => {
   // TODO: save a new book to the DB
-  res.status(418).json({ status: 418, message: "arent you late for something?"});
+  const bookData = req.body;
+  console.log(bookData);
+
+  Book
+    .create(bookData)
+    .then(function() {
+      res.status(200).end();
+    })
+    .catch(function(err) {
+      console.log(err.message);
+      res.status(418).json({ status: 418, message: "arent you late for something?"});
+    });
+
 });
 
 app.delete('/api/books/:id', (req, res) => {
