@@ -9,4 +9,4 @@ const HousepetSchema = new Schema({
 
 const Housepet = mongoose.model('doggydog', HousepetSchema);
 
-module.exports = Housepet;
+// module.exports = Housepet;

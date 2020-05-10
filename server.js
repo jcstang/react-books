@@ -24,28 +24,31 @@ if (process.env.NODE_ENV === "production") {
 app.get('/mongoose', function (request, response) {
   // response.send('Moose bites can be pretti nasti');
   // TODO: make a new model
-  Housepet
+  Book
     .find({})
     .then(function (data) {
       response.json(data);
-    });
-});
-
-app.post('/savePet', function(request, response) {
-  const petData = request.body;
-
-  console.log(petData);
-
-  Housepet
-    .create(petData)
-    .then(function() {
-      response.status(200).end();
     })
-    .catch(function() {
-      console.log('Something went wrong while creating a pet record');
-      response.status(400).end();
-    });
+    .catch(function(err) {
+      response.end('hi');
+    })
 });
+
+// app.post('/savePet', function(request, response) {
+//   const petData = request.body;
+
+//   console.log(petData);
+
+//   Housepet
+//     .create(petData)
+//     .then(function() {
+//       response.status(200).end();
+//     })
+//     .catch(function() {
+//       console.log('Something went wrong while creating a pet record');
+//       response.status(400).end();
+//     });
+// });
 
 
 app.get('/api/saved-books', (req, res) => {
@@ -70,13 +73,6 @@ app.delete('/api/books/:id', (req, res) => {
   // TODO: delete specific book, by _id
   res.status(418).json({ status: 418, message: "arent you late for something?"});
 });
-
-// app.get('/api/someData', function (request, response) {
-//   response.json({
-//     foo: 'bar',
-//     baz: 'quux'
-//   })
-// });
 
 // Send every other request to the React app
 app.get("*", (req, res) => {
