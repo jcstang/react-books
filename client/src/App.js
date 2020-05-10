@@ -3,25 +3,49 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SearchBooks from './components/pages/searchBooks';
 import SavedBooks from './components/pages/savedBooks';
 import Navbar from './components/Navbar';
+import axios from 'axios';
 
 class App extends Component {
 
-  state = {
-    name: '',
-    type: ''
+  constructor(props) {
+    super(props);
+
+    // this.goGetFreshData = this.goGetFreshData.bind(this);
+    
+    this.state = {
+      name: '',
+      type: '',
+      mongoData: []
+    }
+
+    // this.goGetNewData = this.goGetNewData.bind(this);
   }
 
-  // handleFormSubmit = (event) => {
-  //   event.preventDefault();
+  componentDidMount = () => {
+    // this.goGetFreshData();
+    // this.goGetNewData()
+    //   .then(function(docsFromDB) {
+    //     this.setState({
+    //       mongoData: docsFromDB
+    //     });
+    //   });
+  }
 
+  // goGetNewData = () => {
+  //   return axios.get('/api/saved-books');
+  // }
+
+  // goGetFreshData() {
   //   axios
-  //     .post('/savePet', this.state)
-  //     .then(function() {
-  //       console.log('it worked!');
-  //     })
-  //     .catch(function() {
-  //       console.log('it broke');
-  //     });
+  //       .get('/api/saved-books')
+  //       .then(function(documentsFromMongo) {
+  //         this.setState({
+  //           mongoData: documentsFromMongo
+  //         })
+  //       })
+  //       .catch(function(err) {
+  //           console.log(err.message);
+  //       });
   // }
 
   handleInputUpdate = (event) => {
@@ -36,7 +60,10 @@ class App extends Component {
         <div>
           <Navbar />
           <Route exact path="/" component={SearchBooks} />
-          <Route exact path="/saved-books" component={SavedBooks} />
+          <Route 
+            exact path="/saved-books" 
+            component={() => <SavedBooks mongoBookData={this.state.mongoData} />} 
+          />
         </div>
       </Router>
     );
