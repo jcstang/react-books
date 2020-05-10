@@ -32,41 +32,54 @@ export default function SearchBooks(props) {
             bookUrl: ""
         }
     ]);
-
-    const formatBookList = (rawBookList) => {
-        console.log('im inside formatBookList');
-        const proposedBookList = rawBookList.map((item, index) => {
-            return {
-                title: item.volumeInfo.title,
-                authors: ["JRR Tokein"],
-                description: item.volumeInfo.description,
-                imageUrl: item.volumeInfo.imageLink.thumbnail,
-                bookUrl: item.volumeInfo.infoLink
-            }
-        });
-
-        console.log(proposedBookList);
-
-        setBookResultsState(proposedBookList);
-    }
-
+    
     const handleFormSubmit = (event) => {
         event.preventDefault();
         console.log('hi im handling form submit');
         // TODO: search google apis 
         // TODO: display results
-
+        
         googleApis(searchTermState)
-            .then(function(bookResults) {
-                console.log('it worked!');
-                //console.log(bookResults);
-                console.log(bookResults.data.items);
+        .then(function(bookResults) {
+            console.log('it worked!');
+            //console.log(bookResults);
+            console.log(bookResults.data.items);
+            
+            // formatBookList(bookResults.data.items)
+            const rawBookList = bookResults.data.items;
 
-                formatBookList(bookResults.data.items)
-            })
-            .catch(function() {
-                console.log('broke!');
-            })
+            const proposedBookList = [];
+            
+            // FIXME: problem: error is catching. bookResultsState not being set, outcome: bookResults to be set.
+            // rawBookList.map((item, index) => {
+            //     proposedBookList.push({
+            //         title: item.volumeInfo.title,
+            //         authors: ["JRR Tokein"],
+            //         description: item.volumeInfo.description,
+            //         imageUrl: item.volumeInfo.imageLink.thumbnail,
+            //         bookUrl: item.volumeInfo.infoLink
+            //     });
+            // });
+            // console.log(proposedBookList);
+
+
+            // this isn't working either
+            rawBookList.forEach(item => {
+                proposedBookList.push({
+                    title: item.volumeInfo.title,
+                    authors: ["JRR Tokein"],
+                    description: item.volumeInfo.description,
+                    imageUrl: item.volumeInfo.imageLink.thumbnail,
+                    bookUrl: item.volumeInfo.infoLink
+                });
+            });
+            console.log(proposedBookList);
+
+            setBookResultsState(proposedBookList);
+        })
+        .catch(function() {
+            console.log('broke!');
+        })
 
         // axios
         //     .get('https://www.googleapis.com/books/v1/volumes?q=harry+potter+intitle:keyes&key=AIzaSyDmrv-BNf605fTWjdYmc2ReKWSqkNuNHeY')
