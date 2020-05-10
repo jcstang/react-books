@@ -8,6 +8,7 @@ export default function SearchBooks(props) {
     // const [ petTypeState, setTypeState ] = useState('');
 
     // ** text from input and results that come back
+    const [ pageMessageState, setPageMessageState ] = useState('');
     const [ searchTermState, setSearchTermState ] = useState('');
     const [ bookResultsState, setBookResultsState ] = useState([]);
     const [ hardListOfBooksState, setListOfBookState ] = useState([
@@ -37,8 +38,6 @@ export default function SearchBooks(props) {
     const handleFormSubmit = (event) => {
         event.preventDefault();
         console.log('hi im handling form submit');
-        // TODO: search google apis 
-        // TODO: display results
         
         googleApis(searchTermState)
         .then(function(bookResults) {
@@ -47,13 +46,8 @@ export default function SearchBooks(props) {
             console.log(rawBookList);
             
             let proposedBookList = rawBookList.map(function(item, index) {
-                console.log(item.id);
-                // console.log(item.volumeInfo.title);
-                // console.log(item.volumeInfo.description);
-                // console.log(item.volumeInfo.imageLinks.thumbnail);
-                // console.log(item.volumeInfo.infoLink);
                 return {
-                    id: item.id,
+                    googleKey: item.id,
                     title: item.volumeInfo.title,
                     authors: ["JRR Tokein"],
                     description: item.volumeInfo.description,
@@ -61,63 +55,19 @@ export default function SearchBooks(props) {
                     bookUrl: item.volumeInfo.infoLink
                 }
             });
-            
-            
-            // this isn't working either
-            // rawBookList.forEach(item => {
-                //     proposedBookList.push({
-                    //         title: item.volumeInfo.title,
-                    //         authors: ["JRR Tokein"],
-                    //         description: item.volumeInfo.description,
-                    //         imageUrl: item.volumeInfo.imageLink.thumbnail,
-                    //         bookUrl: item.volumeInfo.infoLink
-                    //     });
-                    // });
-                    // console.log(proposedBookList);
-                    
-            // console.log(proposedBookList);
+
             setBookResultsState(proposedBookList);
-            // console.log('end of the then func');
+
         })
         .catch(function() {
             console.log('broke!');
         })
 
-        // axios
-        //     .get('https://www.googleapis.com/books/v1/volumes?q=harry+potter+intitle:keyes&key=AIzaSyDmrv-BNf605fTWjdYmc2ReKWSqkNuNHeY')
-        //     .then(function(data) {
-        //         console.log('it worked!!');
-        //         console.log(data);
-        //     })
-        //     .catch(function() {
-        //         console.log('nope nope nope.... it broke');
-        //     })
+    }
 
-            // key: AIzaSyDmrv-BNf605fTWjdYmc2ReKWSqkNuNHeY
-            // https://www.googleapis.com/books/v1/volumes?q=harry+potter
-
-  //   axios
-  //     .post('/savePet', this.state)
-  //     .then(function() {
-  //       console.log('it worked!');
-  //     })
-  //     .catch(function() {
-  //       console.log('it broke');
-  //     });
-
-        // const sendingData = {
-        //     petName: petNameState,
-        //     type: petTypeState
-        // }
-
-        // axios
-        //     .post('/savePet', sendingData)
-        //     .then(function() {
-        //         console.log('it worked!');
-        //     })
-        //     .catch(function() {
-        //         console.log('it done broke');
-        //     });
+    // TODO: find out how to get the success message from the card
+    const handleMessages = (message) => {
+        console.log(`here is your message sir: ${message}`);
     }
 
 
@@ -126,28 +76,8 @@ export default function SearchBooks(props) {
             <div className="jumbotron">
                 <h1 className="display-4">ReactReactGo</h1>
                 <p className="lead">Search for and save books of interest</p>
+                <p>{pageMessageState}</p>
                 <hr className="my-4" />
-                {/* <form onSubmit={handleFormSubmit}>
-                    <section>
-                        <input
-                            type="text"
-                            name="petName"
-                            value={petNameState}
-                            onChange={event => setPetNameState(event.target.value)}
-                            placeholder="Pet Name" />
-                    </section>
-                    <section>
-                        <input
-                            type="text"
-                            name="type"
-                            value={petTypeState}
-                            onChange={event => setTypeState(event.target.value)}
-                            placeholder="Kind Of Pet" />
-                    </section>
-                    <section>
-                        <button>Save this pet!</button>
-                    </section>
-                </form> */}
                 <form onSubmit={handleFormSubmit}>
                     <div className="form-group">
                         <label htmlFor="book-search">Search for a book</label>
@@ -163,7 +93,8 @@ export default function SearchBooks(props) {
                     <button type="submit" className="btn btn-primary">Search</button>
                 </form>
             </div>
-            <ResultsBookList 
+            <ResultsBookList
+                handleMessages={handleMessages}
                 bookList={bookResultsState}
             />
         </div>

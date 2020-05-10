@@ -17,6 +17,7 @@ export default function ResultsBookList(props) {
                         description={book.description}
                         imageUrl={book.imageUrl || defaultImgUrl}
                         bookUrl={book.bookUrl}
+                        bookObject={book}
                     />
                 ))
             }

@@ -7,8 +7,9 @@ const mongoose = require('mongoose');
 
 
 // TODO: change to books model and books db
-const Housepet = require('./models/Housepets');
-mongoose.connect("mongodb://localhost/pets", { useNewUrlParser: true });
+// const Housepet = require('./models/Housepets');
+const Book = require('./models/Books');
+mongoose.connect("mongodb://localhost/google_books", { useNewUrlParser: true });
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -50,14 +51,24 @@ app.post('/savePet', function(request, response) {
 app.get('/api/saved-books', (req, res) => {
   // TODO: go get books from mongo
   // TODO: return all SAVED books
+  Book
+    .find({})
+    .then(function (data) {
+      res.json(data);
+    })
+    .catch(function() {
+      res.status(400).end('bad things');
+    })
 });
 
 app.post('/api/books', (req, res) => {
   // TODO: save a new book to the DB
+  res.status(418).json({ status: 418, message: "arent you late for something?"});
 });
 
 app.delete('/api/books/:id', (req, res) => {
   // TODO: delete specific book, by _id
+  res.status(418).json({ status: 418, message: "arent you late for something?"});
 });
 
 // app.get('/api/someData', function (request, response) {
