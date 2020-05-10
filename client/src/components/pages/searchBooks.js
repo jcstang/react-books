@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ResultsBookList from '../ResultsBookList';
-import axios from 'axios';
+import googleApis from '../../utils/googleApis';
 
 export default function SearchBooks(props) {
 
@@ -14,16 +14,24 @@ export default function SearchBooks(props) {
         // TODO: search google apis 
         // TODO: display results
 
-
-        axios
-            .get('https://www.googleapis.com/books/v1/volumes?q=harry+potter+intitle:keyes&key=AIzaSyDmrv-BNf605fTWjdYmc2ReKWSqkNuNHeY')
+        googleApis(searchTermState)
             .then(function(data) {
-                console.log('it worked!!');
+                console.log('it worked!');
                 console.log(data);
             })
             .catch(function() {
-                console.log('nope nope nope.... it broke');
+                console.log('broke!');
             })
+
+        // axios
+        //     .get('https://www.googleapis.com/books/v1/volumes?q=harry+potter+intitle:keyes&key=AIzaSyDmrv-BNf605fTWjdYmc2ReKWSqkNuNHeY')
+        //     .then(function(data) {
+        //         console.log('it worked!!');
+        //         console.log(data);
+        //     })
+        //     .catch(function() {
+        //         console.log('nope nope nope.... it broke');
+        //     })
 
             // key: AIzaSyDmrv-BNf605fTWjdYmc2ReKWSqkNuNHeY
             // https://www.googleapis.com/books/v1/volumes?q=harry+potter
