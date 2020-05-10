@@ -43,16 +43,18 @@ export default function SearchBooks(props) {
         .then(function(bookResults) {
             console.log('it worked!');
             //console.log(bookResults);
-            console.log(bookResults.data.items);
+            //console.log(bookResults.data.items);
             
             // formatBookList(bookResults.data.items)
             const rawBookList = bookResults.data.items;
 
-            const proposedBookList = [];
+            //const proposedBookList = [];
             
+            console.log(rawBookList);
             // FIXME: problem: error is catching. bookResultsState not being set, outcome: bookResults to be set.
             // rawBookList.map((item, index) => {
             //     proposedBookList.push({
+            //         id: item.id,
             //         title: item.volumeInfo.title,
             //         authors: ["JRR Tokein"],
             //         description: item.volumeInfo.description,
@@ -60,22 +62,39 @@ export default function SearchBooks(props) {
             //         bookUrl: item.volumeInfo.infoLink
             //     });
             // });
-            // console.log(proposedBookList);
-
-
-            // this isn't working either
-            rawBookList.forEach(item => {
-                proposedBookList.push({
+            
+            let proposedBookList = rawBookList.map(function(item, index) {
+                console.log(item.id);
+                // console.log(item.volumeInfo.title);
+                // console.log(item.volumeInfo.description);
+                // console.log(item.volumeInfo.imageLinks.thumbnail);
+                // console.log(item.volumeInfo.infoLink);
+                return {
+                    id: item.id,
                     title: item.volumeInfo.title,
                     authors: ["JRR Tokein"],
                     description: item.volumeInfo.description,
-                    imageUrl: item.volumeInfo.imageLink.thumbnail,
+                    imageUrl: item.volumeInfo.imageLinks.thumbnail,
                     bookUrl: item.volumeInfo.infoLink
-                });
+                }
             });
+            
+            
+            // this isn't working either
+            // rawBookList.forEach(item => {
+                //     proposedBookList.push({
+                    //         title: item.volumeInfo.title,
+                    //         authors: ["JRR Tokein"],
+                    //         description: item.volumeInfo.description,
+                    //         imageUrl: item.volumeInfo.imageLink.thumbnail,
+                    //         bookUrl: item.volumeInfo.infoLink
+                    //     });
+                    // });
+                    // console.log(proposedBookList);
+                    
             console.log(proposedBookList);
-
             setBookResultsState(proposedBookList);
+            console.log('end of the then func');
         })
         .catch(function() {
             console.log('broke!');
