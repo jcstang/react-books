@@ -7,6 +7,48 @@ export default function SearchBooks(props) {
     const [ petNameState, setPetNameState ] = useState('');
     const [ petTypeState, setTypeState ] = useState('');
     const [ searchTermState, setSearchTermState ] = useState('');
+    // TODO: results array
+    const [ bookResultsState, setBookResultsState ] = useState([]);
+    const [ hardListOfBooksState, setListOfBookState ] = useState([
+        {
+            title: 'The Hunger Games',
+            authors: ['Suzanne Collins'],
+            description: "Set in a dark vision of the near future, a terrifying reality TV show is taking place. Twelve boys and twelve girls are forced to appear in a live event called The Hunger Games. There is only one rule: kill or be killed. When sixteen-year-old Katniss Everdeen steps forward to take her younger sister's place in the games, she sees it as a death sentence. But Katniss has been close to death before. For her, survival is second nature.",
+            imageUrl: "http://books.google.com/books/content?id=sazytgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            bookUrl: "http://books.google.com/books?id=sazytgAACAAJ&dq=title:The+Hunger+Games&hl=&source=gbs_api",
+        },
+        {
+            title: 'I am Legend',
+            authors: ['Richard Matheson'],
+            description: "",
+            imageUrl: "",
+            bookUrl: ""
+        },
+        {
+            title: 'The Hobbit',
+            authors: ['J.R.R Tolkein'],
+            description: "",
+            imageUrl: "",
+            bookUrl: ""
+        }
+    ]);
+
+    const formatBookList = (rawBookList) => {
+        console.log('im inside formatBookList');
+        const proposedBookList = rawBookList.map((item, index) => {
+            return {
+                title: item.volumeInfo.title,
+                authors: ["JRR Tokein"],
+                description: item.volumeInfo.description,
+                imageUrl: item.volumeInfo.imageLink.thumbnail,
+                bookUrl: item.volumeInfo.infoLink
+            }
+        });
+
+        console.log(proposedBookList);
+
+        setBookResultsState(proposedBookList);
+    }
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -15,9 +57,12 @@ export default function SearchBooks(props) {
         // TODO: display results
 
         googleApis(searchTermState)
-            .then(function(data) {
+            .then(function(bookResults) {
                 console.log('it worked!');
-                console.log(data);
+                //console.log(bookResults);
+                console.log(bookResults.data.items);
+
+                formatBookList(bookResults.data.items)
             })
             .catch(function() {
                 console.log('broke!');
@@ -103,7 +148,9 @@ export default function SearchBooks(props) {
                     <button type="submit" className="btn btn-primary">Search</button>
                 </form>
             </div>
-            <ResultsBookList />
+            <ResultsBookList 
+                bookList={bookResultsState}
+            />
         </div>
     );
 }
