@@ -46,9 +46,9 @@ export default function BookListCard(props) {
                             rel="noopener noreferrer">View</a>
                         <button 
                             type="button" 
-                            className="btn btn-info"
+                            className={`btn btn-${props.actionItemFormat}`}
                             onClick={() => saveButtonClicked(props.bookObject)}
-                        >Save</button>
+                        >{props.actionItemText}</button>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,12 @@ export default function ResultsBookList(props) {
 
     const defaultImgUrl = "https://source.unsplash.com/sfL_QOnmy00/250x300";
 
+    const getActionItem = () => {
+        return {
+            text: 'Save',
+            format: 'info'
+        }
+    }
 
     return (
         <div className="container">
@@ -18,6 +24,8 @@ export default function ResultsBookList(props) {
                         imageUrl={book.imageUrl || defaultImgUrl}
                         bookUrl={book.bookUrl}
                         bookObject={book}
+                        actionItemText={getActionItem().text}
+                        actionItemFormat={getActionItem().format}
                     />
                 ))
             }

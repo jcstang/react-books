@@ -11,13 +11,18 @@ export default function SavedBooks(props) {
         axios
             .get('/api/saved-books')
             .then(function(documentsFromMongo) {
-                // this.saveBooksToState(documentsFromMongo);
-                console.log(documentsFromMongo);
                 setBooksFromDBState(documentsFromMongo.data);
             })
             .catch(function(err) {
                 console.log(err.message);
             });
+    }
+
+    const getActionItem = () => {
+        return {
+            text: 'Delete',
+            format: 'danger'
+        }
     }
 
     goGetFreshData();
@@ -36,6 +41,9 @@ export default function SavedBooks(props) {
                         bookTitle={book.title}
                         imageUrl={book.imageUrl || defaultImageUrlState}
                         bookUrl={book.bookUrl}
+                        description={book.description}
+                        actionItemText={getActionItem().text}
+                        actionItemFormat={getActionItem().format}
                     />
                 ))
             }
