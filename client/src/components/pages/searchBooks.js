@@ -4,10 +4,11 @@ import googleApis from '../../utils/googleApis';
 
 export default function SearchBooks(props) {
 
-    const [ petNameState, setPetNameState ] = useState('');
-    const [ petTypeState, setTypeState ] = useState('');
+    //const [ petNameState, setPetNameState ] = useState('');
+    // const [ petTypeState, setTypeState ] = useState('');
+
+    // ** text from input and results that come back
     const [ searchTermState, setSearchTermState ] = useState('');
-    // TODO: results array
     const [ bookResultsState, setBookResultsState ] = useState([]);
     const [ hardListOfBooksState, setListOfBookState ] = useState([
         {
@@ -42,26 +43,8 @@ export default function SearchBooks(props) {
         googleApis(searchTermState)
         .then(function(bookResults) {
             console.log('it worked!');
-            //console.log(bookResults);
-            //console.log(bookResults.data.items);
-            
-            // formatBookList(bookResults.data.items)
             const rawBookList = bookResults.data.items;
-
-            //const proposedBookList = [];
-            
             console.log(rawBookList);
-            // FIXME: problem: error is catching. bookResultsState not being set, outcome: bookResults to be set.
-            // rawBookList.map((item, index) => {
-            //     proposedBookList.push({
-            //         id: item.id,
-            //         title: item.volumeInfo.title,
-            //         authors: ["JRR Tokein"],
-            //         description: item.volumeInfo.description,
-            //         imageUrl: item.volumeInfo.imageLink.thumbnail,
-            //         bookUrl: item.volumeInfo.infoLink
-            //     });
-            // });
             
             let proposedBookList = rawBookList.map(function(item, index) {
                 console.log(item.id);
@@ -92,9 +75,9 @@ export default function SearchBooks(props) {
                     // });
                     // console.log(proposedBookList);
                     
-            console.log(proposedBookList);
+            // console.log(proposedBookList);
             setBookResultsState(proposedBookList);
-            console.log('end of the then func');
+            // console.log('end of the then func');
         })
         .catch(function() {
             console.log('broke!');

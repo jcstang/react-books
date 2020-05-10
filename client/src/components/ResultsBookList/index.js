@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import BookListCard from '../BookListCard';
 
 export default function ResultsBookList(props) {
@@ -14,6 +14,7 @@ export default function ResultsBookList(props) {
                     <BookListCard 
                         key={index}
                         bookTitle={book.title}
+                        description={book.description}
                         imageUrl={book.imageUrl || defaultImgUrl}
                         bookUrl={book.bookUrl}
                     />
