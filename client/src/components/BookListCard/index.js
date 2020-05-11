@@ -5,29 +5,6 @@ import axios from 'axios';
 export default function BookListCard(props) {
     /* TODO: optional - cards have a fight when they are on mobile  */
 
-    // function saveButtonClicked(book) {
-    //     // TODO: take id and save to db? or maybe the whole book object?
-
-    //     axios
-    //         .post('/api/books', book)
-    //         .then(function() {
-    //             console.log('yay!');
-    //         })
-    //         .catch(function(err) {
-    //             console.log(err.message);
-    //         });
-
-    //     //   axios
-    //     //     .post('/savePet', this.state)
-    //     //     .then(function() {
-    //     //       console.log('it worked!');
-    //     //     })
-    //     //     .catch(function() {
-    //     //       console.log('it broke');
-    //     //     });
-    //     // }
-    // }
-
     const decideAction = (event) => {
         event.preventDefault();
         console.log('decideAction');
@@ -58,10 +35,6 @@ export default function BookListCard(props) {
         props.handleDelete(props.mongoKey);
     }
 
-
-    // **************
-    // TODO: WHICH action button to display??? Save or Delete
-    // **************
     
     return (
         <div className="container-fluid card">

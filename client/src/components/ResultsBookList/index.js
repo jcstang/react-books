@@ -26,7 +26,6 @@ export default function ResultsBookList(props) {
 
     return (
         <div className="container">
-            {/* TODO: render thru multiple results via map? */}
             {
                 props.bookList.map((book, index) => (
                     <BookListCard 

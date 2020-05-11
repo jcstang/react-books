@@ -5,9 +5,6 @@ const app = express();
 
 const mongoose = require('mongoose');
 
-
-// TODO: change to books model and books db
-// const Housepet = require('./models/Housepets');
 const Book = require('./models/Books');
 mongoose.connect("mongodb://localhost/google_books", { useNewUrlParser: true });
 
@@ -20,37 +17,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 
-// test endpoint to ensure mongoose works
-// app.get('/mongoose', function (request, response) {
-//   // response.send('Moose bites can be pretti nasti');
-//   // TODO: make a new model
-//   Book
-//     .find({})
-//     .then(function (data) {
-//       response.json(data);
-//     })
-//     .catch(function(err) {
-//       response.end('hi');
-//     })
-// });
-
-// app.post('/savePet', function(request, response) {
-//   const petData = request.body;
-
-//   console.log(petData);
-
-//   Housepet
-//     .create(petData)
-//     .then(function() {
-//       response.status(200).end();
-//     })
-//     .catch(function() {
-//       console.log('Something went wrong while creating a pet record');
-//       response.status(400).end();
-//     });
-// });
-
-
+// ROUTES
+// =============================================================
 app.get('/api/saved-books', (req, res) => {
   Book
     .find({})
@@ -63,7 +31,6 @@ app.get('/api/saved-books', (req, res) => {
 });
 
 app.post('/api/books', (req, res) => {
-  // TODO: save a new book to the DB
   const bookData = req.body;
   console.log(bookData);
 
@@ -80,7 +47,6 @@ app.post('/api/books', (req, res) => {
 });
 
 app.delete('/api/books/:id', (req, res) => {
-  // TODO: delete specific book, by _id
   const mongoKey = req.params.id;
 
   Book
