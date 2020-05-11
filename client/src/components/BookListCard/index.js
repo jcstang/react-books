@@ -5,28 +5,59 @@ import axios from 'axios';
 export default function BookListCard(props) {
     /* TODO: optional - cards have a fight when they are on mobile  */
 
-    function saveButtonClicked(book) {
-        // TODO: take id and save to db? or maybe the whole book object?
+    // function saveButtonClicked(book) {
+    //     // TODO: take id and save to db? or maybe the whole book object?
 
-        axios
-            .post('/api/books', book)
-            .then(function() {
-                console.log('yay!');
-            })
-            .catch(function(err) {
-                console.log(err.message);
-            });
+    //     axios
+    //         .post('/api/books', book)
+    //         .then(function() {
+    //             console.log('yay!');
+    //         })
+    //         .catch(function(err) {
+    //             console.log(err.message);
+    //         });
 
-        //   axios
-        //     .post('/savePet', this.state)
-        //     .then(function() {
-        //       console.log('it worked!');
-        //     })
-        //     .catch(function() {
-        //       console.log('it broke');
-        //     });
+    //     //   axios
+    //     //     .post('/savePet', this.state)
+    //     //     .then(function() {
+    //     //       console.log('it worked!');
+    //     //     })
+    //     //     .catch(function() {
+    //     //       console.log('it broke');
+    //     //     });
+    //     // }
+    // }
+
+    const decideAction = (event) => {
+        event.preventDefault();
+        console.log('decideAction');
+        console.log(props.actionItemMethod);
+
+        if(props.actionItemText === 'Save')  {
+            props.actionItemMethod(props.bookObject);
+        } else {
+            props.actionItemMethod(props.mongoKey);
+        }
+        // if(value === 'thing') {
+        //     // do save button
+        // } else {
+        //     // do delete button
         // }
     }
+
+    // function childDeleteBookmarkClick(event) {
+    //     event.preventDefault();
+
+    //     //CALL the function that was passed down and down
+    //     props.destroyBookmark(props.index);
+    // }
+
+    const deleteSomething = (event) => {
+        event.preventDefault();
+
+        props.handleDelete(props.mongoKey);
+    }
+
 
     // **************
     // TODO: WHICH action button to display??? Save or Delete
@@ -47,7 +78,8 @@ export default function BookListCard(props) {
                         <button 
                             type="button" 
                             className={`btn btn-${props.actionItemFormat}`}
-                            onClick={() => saveButtonClicked(props.bookObject)}
+                            // onClick={() => saveButtonClicked(props.bookObject)}
+                            onClick={decideAction}
                         >{props.actionItemText}</button>
                     </div>
                 </div>

@@ -81,7 +81,19 @@ app.post('/api/books', (req, res) => {
 
 app.delete('/api/books/:id', (req, res) => {
   // TODO: delete specific book, by _id
-  res.status(418).json({ status: 418, message: "arent you late for something?"});
+  const mongoKey = req.params.id;
+
+  Book
+    .remove({
+      _id: mongoKey
+    })
+    .then(function(data) {
+      res.status(200).end();
+    })
+    .catch(function() {
+      res.status(418).json({ status: 418, message: "arent you late for something?"});
+    });
+
 });
 
 // Send every other request to the React app

@@ -5,10 +5,22 @@ export default function ResultsBookList(props) {
 
     const defaultImgUrl = "https://source.unsplash.com/sfL_QOnmy00/250x300";
 
+    // const handleSave = (book) => {
+    //     axios
+    //         .post('/api/books', book)
+    //         .then(function() {
+    //             console.log('yay!');
+    //         })
+    //         .catch(function(err) {
+    //             console.log(err.message);
+    //         });
+    // }
+
     const getActionItem = () => {
         return {
             text: 'Save',
-            format: 'info'
+            format: 'info',
+            method: props.handleSave
         }
     }
 
@@ -26,6 +38,7 @@ export default function ResultsBookList(props) {
                         bookObject={book}
                         actionItemText={getActionItem().text}
                         actionItemFormat={getActionItem().format}
+                        actionItemMethod={getActionItem().method}
                     />
                 ))
             }

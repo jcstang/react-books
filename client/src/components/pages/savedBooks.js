@@ -4,16 +4,37 @@ import axios from 'axios';
 // import ResultBookList from '../ResultsBookList';
 
 export default function SavedBooks(props) {
-    const [ defaultImageUrlState, setDefaultImgUrlState ] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
-    const [ booksFromDBState, setBooksFromDBState ] = useState([]);
+    const [defaultImageUrlState, setDefaultImgUrlState] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
+    const [booksFromDBState, setBooksFromDBState] = useState([]);
 
     const goGetFreshData = () => {
         axios
             .get('/api/saved-books')
-            .then(function(documentsFromMongo) {
+            .then(function (documentsFromMongo) {
                 setBooksFromDBState(documentsFromMongo.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
+                console.log(err.message);
+            });
+    }
+
+    // const deleteBookmark = bookmarkIndex => {
+    //     const newLinks = this.state.links.filter(function (link, index) {
+    //         return index !== bookmarkIndex;
+    //     });
+
+    //     this.setState({ links: newLinks });
+    // }
+
+    const handleDelete = book_id => {
+        console.log('I made it to handleDelte!!!');
+        const deletePath = `/api/books/${book_id}`;
+        axios
+            .delete(deletePath)
+            .then((result) => {
+                console.log(result);
+            })
+            .catch(err => {
                 console.log(err.message);
             });
     }
@@ -21,7 +42,8 @@ export default function SavedBooks(props) {
     const getActionItem = () => {
         return {
             text: 'Delete',
-            format: 'danger'
+            format: 'danger',
+            method: handleDelete
         }
     }
 
@@ -36,14 +58,16 @@ export default function SavedBooks(props) {
             </div>
             {
                 booksFromDBState.map((book, index) => (
-                    <BookListCard 
+                    <BookListCard
                         key={index}
+                        mongoKey={book._id}
                         bookTitle={book.title}
                         imageUrl={book.imageUrl || defaultImageUrlState}
                         bookUrl={book.bookUrl}
                         description={book.description}
                         actionItemText={getActionItem().text}
                         actionItemFormat={getActionItem().format}
+                        actionItemMethod={handleDelete}
                     />
                 ))
             }

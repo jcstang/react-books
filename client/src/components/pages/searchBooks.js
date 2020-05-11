@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ResultsBookList from '../ResultsBookList';
 import googleApis from '../../utils/googleApis';
+import axios from 'axios';
 
 export default function SearchBooks(props) {
 
@@ -70,6 +71,17 @@ export default function SearchBooks(props) {
         console.log(`here is your message sir: ${message}`);
     }
 
+    const handleSave = (book) => {
+        axios
+            .post('/api/books', book)
+            .then(function() {
+                console.log('yay!');
+            })
+            .catch(function(err) {
+                console.log(err.message);
+            });
+    }
+
 
     return (
         <div className="container">
@@ -96,6 +108,7 @@ export default function SearchBooks(props) {
             <ResultsBookList
                 handleMessages={handleMessages}
                 bookList={bookResultsState}
+                handleSave={handleSave}
             />
         </div>
     );
