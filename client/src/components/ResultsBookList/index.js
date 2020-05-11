@@ -5,17 +5,6 @@ export default function ResultsBookList(props) {
 
     const defaultImgUrl = "https://source.unsplash.com/sfL_QOnmy00/250x300";
 
-    // const handleSave = (book) => {
-    //     axios
-    //         .post('/api/books', book)
-    //         .then(function() {
-    //             console.log('yay!');
-    //         })
-    //         .catch(function(err) {
-    //             console.log(err.message);
-    //         });
-    // }
-
     const getActionItem = () => {
         return {
             text: 'Save',

@@ -7,27 +7,16 @@ export default function BookListCard(props) {
 
     const decideAction = (event) => {
         event.preventDefault();
-        console.log('decideAction');
-        console.log(props.actionItemMethod);
+        // console.log('decideAction');
+        // console.log(props.actionItemMethod);
 
         if(props.actionItemText === 'Save')  {
             props.actionItemMethod(props.bookObject);
         } else {
             props.actionItemMethod(props.mongoKey);
         }
-        // if(value === 'thing') {
-        //     // do save button
-        // } else {
-        //     // do delete button
-        // }
+
     }
-
-    // function childDeleteBookmarkClick(event) {
-    //     event.preventDefault();
-
-    //     //CALL the function that was passed down and down
-    //     props.destroyBookmark(props.index);
-    // }
 
     const deleteSomething = (event) => {
         event.preventDefault();
@@ -35,7 +24,6 @@ export default function BookListCard(props) {
         props.handleDelete(props.mongoKey);
     }
 
-    
     return (
         <div className="container-fluid card">
             <div className="row">

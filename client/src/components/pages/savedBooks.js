@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import BookListCard from '../BookListCard';
 import axios from 'axios';
 // import ResultBookList from '../ResultsBookList';
@@ -27,7 +27,7 @@ export default function SavedBooks(props) {
     // }
 
     const handleDelete = book_id => {
-        console.log('I made it to handleDelte!!!');
+        // console.log('I made it to handleDelte!!!');
         const deletePath = `/api/books/${book_id}`;
         axios
             .delete(deletePath)

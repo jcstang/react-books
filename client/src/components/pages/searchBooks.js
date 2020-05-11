@@ -38,13 +38,13 @@ export default function SearchBooks(props) {
     
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        console.log('hi im handling form submit');
+        // console.log('hi im handling form submit');
         
         googleApis(searchTermState)
         .then(function(bookResults) {
             console.log('it worked!');
             const rawBookList = bookResults.data.items;
-            console.log(rawBookList);
+            // console.log(rawBookList);
             
             let proposedBookList = rawBookList.map(function(item, index) {
                 return {
@@ -60,8 +60,8 @@ export default function SearchBooks(props) {
             setBookResultsState(proposedBookList);
 
         })
-        .catch(function() {
-            console.log('broke!');
+        .catch(function(err) {
+            console.log(`broke... ${err.message}`);
         })
 
     }

@@ -9,8 +9,6 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-
-    // this.goGetFreshData = this.goGetFreshData.bind(this);
     
     this.state = {
       name: '',
@@ -18,35 +16,7 @@ class App extends Component {
       mongoData: []
     }
 
-    // this.goGetNewData = this.goGetNewData.bind(this);
   }
-
-  componentDidMount = () => {
-    // this.goGetFreshData();
-    // this.goGetNewData()
-    //   .then(function(docsFromDB) {
-    //     this.setState({
-    //       mongoData: docsFromDB
-    //     });
-    //   });
-  }
-
-  // goGetNewData = () => {
-  //   return axios.get('/api/saved-books');
-  // }
-
-  // goGetFreshData() {
-  //   axios
-  //       .get('/api/saved-books')
-  //       .then(function(documentsFromMongo) {
-  //         this.setState({
-  //           mongoData: documentsFromMongo
-  //         })
-  //       })
-  //       .catch(function(err) {
-  //           console.log(err.message);
-  //       });
-  // }
 
   handleInputUpdate = (event) => {
     const { name, value } = event.target;
