@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import BookListCard from '../BookListCard';
 import axios from 'axios';
-// import ResultBookList from '../ResultsBookList';
 
 export default function SavedBooks(props) {
     const [defaultImageUrlState, setDefaultImgUrlState] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
@@ -18,16 +17,7 @@ export default function SavedBooks(props) {
             });
     }
 
-    // const deleteBookmark = bookmarkIndex => {
-    //     const newLinks = this.state.links.filter(function (link, index) {
-    //         return index !== bookmarkIndex;
-    //     });
-
-    //     this.setState({ links: newLinks });
-    // }
-
     const handleDelete = book_id => {
-        // console.log('I made it to handleDelte!!!');
         const deletePath = `/api/books/${book_id}`;
         axios
             .delete(deletePath)

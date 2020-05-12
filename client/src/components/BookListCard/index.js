@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.css';
-import axios from 'axios';
 
 export default function BookListCard(props) {
     /* TODO: optional - cards have a fight when they are on mobile  */
@@ -18,11 +17,11 @@ export default function BookListCard(props) {
 
     }
 
-    const deleteSomething = (event) => {
-        event.preventDefault();
+    // const deleteSomething = (event) => {
+    //     event.preventDefault();
 
-        props.handleDelete(props.mongoKey);
-    }
+    //     props.handleDelete(props.mongoKey);
+    // }
 
     return (
         <div className="container-fluid card">
