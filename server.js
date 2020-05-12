@@ -6,7 +6,16 @@ const app = express();
 const mongoose = require('mongoose');
 
 const Book = require('./models/Books');
-mongoose.connect("mongodb://localhost/google_books", { useNewUrlParser: true });
+
+let MONGODB_URI = process.env.NODE_ENV 
+  ? process.env.MONGODB_URI 
+  : "mongodb://localhost/google_books";
+
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+// mongoose.connect("mongodb://localhost/google_books", { useNewUrlParser: true });
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
