@@ -14,7 +14,7 @@ export default function ResultsBookList(props) {
     }
 
     return (
-        <div className="container">
+        <div className="container book-container">
             {
                 props.bookList.map((book, index) => (
                     <BookListCard 
