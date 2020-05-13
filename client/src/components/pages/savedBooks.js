@@ -5,6 +5,7 @@ import axios from 'axios';
 export default function SavedBooks(props) {
     const [defaultImageUrlState, setDefaultImgUrlState] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
     const [booksFromDBState, setBooksFromDBState] = useState([]);
+    const [ messageState, setMessageState ] = useState('');
 
     const goGetFreshData = () => {
         axios
@@ -23,9 +24,11 @@ export default function SavedBooks(props) {
             .delete(deletePath)
             .then((result) => {
                 console.log(result);
+                setMessageState('yay! book deleted successfully!');
             })
             .catch(err => {
                 console.log(err.message);
+                setMessageState('error! could not delete the book');
             });
     }
 
@@ -44,6 +47,7 @@ export default function SavedBooks(props) {
             <div className="jumbotron">
                 <h1 className="display-4">ReactReactGo</h1>
                 <p className="lead">Search for and save books of interest</p>
+                <p>{messageState}</p>
                 <hr className="my-4" />
             </div>
             {

@@ -6,9 +6,11 @@ import axios from 'axios';
 export default function SearchBooks(props) {
 
     // ** text from input and results that come back
-    const [ pageMessageState, setPageMessageState ] = useState('');
+    //const [ pageMessageState, setPageMessageState ] = useState('');
+    const [defaultImageUrlState, setDefaultImgUrlState] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
     const [ searchTermState, setSearchTermState ] = useState('');
     const [ bookResultsState, setBookResultsState ] = useState([]);
+    const [ messageState, setMessageState ] = useState('');
     
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -18,12 +20,22 @@ export default function SearchBooks(props) {
             // const rawBookList = bookResults.data.items;
             
             let proposedBookList = bookResults.data.items.map(function(item, index) {
+                let imageToRender = '';
+
+                try {
+                    imageToRender = item.volumeInfo.imageLinks.thumbnail;
+                } catch (e) {
+                    imageToRender = defaultImageUrlState;
+                }
+
+                console.log(imageToRender);
+
                 return {
                     googleKey: item.id,
                     title: item.volumeInfo.title,
                     authors: ["JRR Tokein"],
                     description: item.volumeInfo.description,
-                    imageUrl: item.volumeInfo.imageLinks.thumbnail,
+                    imageUrl: imageToRender,
                     bookUrl: item.volumeInfo.infoLink
                 }
             });
@@ -47,9 +59,11 @@ export default function SearchBooks(props) {
             .post('/api/books', book)
             .then(function() {
                 console.log('yay!');
+                setMessageState('yay! book saved successfully!');
             })
             .catch(function(err) {
                 console.log(err.message);
+                setMessageState('error! could not save book');
             });
     }
 
@@ -59,7 +73,7 @@ export default function SearchBooks(props) {
             <div className="jumbotron">
                 <h1 className="display-4">ReactReactGo</h1>
                 <p className="lead">Search for and save books of interest</p>
-                <p>{pageMessageState}</p>
+                <p>{messageState}</p>
                 <hr className="my-4" />
                 <form onSubmit={handleFormSubmit}>
                     <div className="form-group">
