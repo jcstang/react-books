@@ -23,7 +23,7 @@ export default function SavedBooks(props) {
         axios
             .delete(deletePath)
             .then((result) => {
-                console.log(result);
+                // console.log(result);
                 setMessageState('yay! book deleted successfully!');
             })
             .catch(err => {
