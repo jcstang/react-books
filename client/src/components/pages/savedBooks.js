@@ -9,7 +9,11 @@ const savedBooksReducer = (state, action) => {
                 ...state,
                 booksFromMongo: action.docsOfBooks
             };
-        case 'remove-book':
+        case 'set-message':
+            return {
+                ...state,
+                messageForUser: action.message
+            }
             break;
         default:
             break;
@@ -74,7 +78,7 @@ export default function SavedBooks(props) {
             <div className="jumbotron">
                 <h1 className="display-4">ReactReactGo</h1>
                 <p className="lead">Search for and save books of interest</p>
-                <p>{messageState}</p>
+                <p>{savedBookState.messageForUser}</p>
                 <hr className="my-4" />
             </div>
             {
@@ -90,6 +94,7 @@ export default function SavedBooks(props) {
                         actionItemText={getActionItem().text}
                         actionItemFormat={getActionItem().format}
                         actionItemMethod={handleDelete}
+                        dispatch={saveBooksDispatch}
                     />
                 ))
             }

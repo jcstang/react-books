@@ -33,7 +33,8 @@ export default function BookListCard(props) {
                     <div className="btn-group btn-group-sm" role="group" aria-label="Basic example">
                         <a  href={props.bookUrl} 
                             className="btn btn-warning" 
-                            target="_blank" 
+                            target="_blank"
+                            onClick={() => props.dispatch({ type: 'set-message', message: 'user has clicked the view button'})}
                             rel="noopener noreferrer">View</a>
                         <button 
                             type="button" 
