@@ -1,17 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import BookListCard from '../BookListCard';
 import axios from 'axios';
 
+const savedBooksReducer = (state, action) => {
+    switch (action.type) {
+        case 'mongo':
+            return {
+                ...state,
+                booksFromMongo: action.docsOfBooks
+            };
+        case 'remove-book':
+            break;
+        default:
+            break;
+    }
+
+    return state;
+}
+
+
 export default function SavedBooks(props) {
-    const [defaultImageUrlState, setDefaultImgUrlState] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
+    const initialState = {
+        defaultImgUrl: "https://source.unsplash.com/sfL_QOnmy00/250x300",
+        booksFromMongo: [],
+        messageForUser: ''
+    }
+    // const [defaultImageUrlState, setDefaultImgUrlState] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
     const [booksFromDBState, setBooksFromDBState] = useState([]);
     const [ messageState, setMessageState ] = useState('');
+
+    const [savedBookState, saveBooksDispatch] = useReducer(savedBooksReducer, initialState);
+
+
 
     const goGetFreshData = () => {
         axios
             .get('/api/saved-books')
             .then(function (documentsFromMongo) {
-                setBooksFromDBState(documentsFromMongo.data);
+                // setBooksFromDBState(documentsFromMongo.data);
+                saveBooksDispatch({ type: 'mongo', docsOfBooks: documentsFromMongo.data});
             })
             .catch(function (err) {
                 console.log(err.message);
@@ -51,12 +78,13 @@ export default function SavedBooks(props) {
                 <hr className="my-4" />
             </div>
             {
-                booksFromDBState.map((book, index) => (
+                savedBookState.booksFromMongo.map((book, index) => (
                     <BookListCard
                         key={index}
                         mongoKey={book._id}
                         bookTitle={book.title}
-                        imageUrl={book.imageUrl || defaultImageUrlState}
+                        // imageUrl={book.imageUrl || defaultImageUrlState}
+                        imageUrl={book.imageUrl || savedBookState.defaultImgUrl}
                         bookUrl={book.bookUrl}
                         description={book.description}
                         actionItemText={getActionItem().text}
