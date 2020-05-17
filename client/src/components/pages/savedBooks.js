@@ -2,6 +2,7 @@ import React, { useState, useReducer } from 'react';
 import BookListCard from '../BookListCard';
 import axios from 'axios';
 
+// REDUCER
 const savedBooksReducer = (state, action) => {
     switch (action.type) {
         case 'mongo':
@@ -33,6 +34,8 @@ export default function SavedBooks(props) {
     const [booksFromDBState, setBooksFromDBState] = useState([]);
     const [ messageState, setMessageState ] = useState('');
 
+
+    // REDUCER
     const [savedBookState, saveBooksDispatch] = useReducer(savedBooksReducer, initialState);
 
 
