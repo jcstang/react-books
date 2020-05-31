@@ -29,22 +29,7 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/jcstang/react-books">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">React Books App</h3>
-
-  <p align="center">
-    React app to search and save for books.
-    <br />
-    <a href="https://github.com/jcstang/react-books"><strong>Explore the docs »</strong></a>
-    <br />
-  </p>
-</p>
+# React book search app
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
@@ -66,24 +51,19 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://jcstang-s3.s3-us-west-1.amazonaws.com/img-assets/react-books-app-screenshot.png)
+Have you ever wanted to look up new books to read? and save that book for you to read later? Here is the app!
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`jcstang`, `react-books`, `@jc_stang`, `jacobcstanger@gmail.com`
-
+![React Book App screeenshot](https://jcstang-s3.s3-us-west-1.amazonaws.com/img-assets/react-books-app-screenshot.png "React Books")
 
 ### Built With
 
 * [React](https://reactjs.org/)
 * [React hooks](https://reactjs.org/docs/hooks-intro.html)
+* [Node / Express](https://expressjs.com/)
 * [MongoDB](https://www.mongodb.com/)
 * [Mongoose](https://www.npmjs.com/package/mongoose)
 * [react-bootstrap](https://react-bootstrap.github.io/)
-* [Bulma](https://bulma.io/)
 * [Bootstrap](https://getbootstrap.com/)
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -181,4 +161,3 @@ Project Link: [https://github.com/jcstang/react-books](https://github.com/jcstan
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png

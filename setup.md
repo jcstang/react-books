@@ -1,4 +1,4 @@
-# Setup Steps for Week 20 Homework #
+# Setup Steps for react book app #
 1. Copy create-react-express folder from week 20, activity 07
 2. Make sure Mongo is running (mongod on Windows)
 3. Install mongo npm package (in the root folder -- same directory as server.js)
