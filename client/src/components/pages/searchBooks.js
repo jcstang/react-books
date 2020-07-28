@@ -4,97 +4,100 @@ import googleApis from '../../utils/googleApis';
 import axios from 'axios';
 
 export default function SearchBooks(props) {
+  // ** text from input and results that come back
+  //const [ pageMessageState, setPageMessageState ] = useState('');
+  const [defaultImageUrlState] = useState(
+    'https://source.unsplash.com/sfL_QOnmy00/250x300'
+  );
+  const [searchTermState, setSearchTermState] = useState('');
+  const [bookResultsState, setBookResultsState] = useState([]);
+  const [messageState, setMessageState] = useState('');
 
-    // ** text from input and results that come back
-    //const [ pageMessageState, setPageMessageState ] = useState('');
-    const [defaultImageUrlState, setDefaultImgUrlState] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
-    const [ searchTermState, setSearchTermState ] = useState('');
-    const [ bookResultsState, setBookResultsState ] = useState([]);
-    const [ messageState, setMessageState ] = useState('');
-    
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        
-        googleApis(searchTermState)
-        .then(function(bookResults) {
-            // const rawBookList = bookResults.data.items;
-            
-            let proposedBookList = bookResults.data.items.map(function(item, index) {
-                let imageToRender = '';
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
 
-                try {
-                    imageToRender = item.volumeInfo.imageLinks.thumbnail;
-                } catch (e) {
-                    imageToRender = defaultImageUrlState;
-                }
+    googleApis(searchTermState)
+      .then(function (bookResults) {
+        // const rawBookList = bookResults.data.items;
 
-                console.log(imageToRender);
+        let proposedBookList = bookResults.data.items.map(function (
+          item,
+          index
+        ) {
+          let imageToRender = '';
 
-                return {
-                    googleKey: item.id,
-                    title: item.volumeInfo.title,
-                    authors: ["JRR Tokein"],
-                    description: item.volumeInfo.description,
-                    imageUrl: imageToRender,
-                    bookUrl: item.volumeInfo.infoLink
-                }
-            });
+          try {
+            imageToRender = item.volumeInfo.imageLinks.thumbnail;
+          } catch (e) {
+            imageToRender = defaultImageUrlState;
+          }
 
-            setBookResultsState(proposedBookList);
+          console.log(imageToRender);
 
-        })
-        .catch(function(err) {
-            console.log(`broke... ${err.message}`);
-        })
+          return {
+            googleKey: item.id,
+            title: item.volumeInfo.title,
+            authors: ['JRR Tokein'],
+            description: item.volumeInfo.description,
+            imageUrl: imageToRender,
+            bookUrl: item.volumeInfo.infoLink,
+          };
+        });
 
-    }
+        setBookResultsState(proposedBookList);
+      })
+      .catch(function (err) {
+        console.log(`broke... ${err.message}`);
+      });
+  };
 
-    // TODO: find out how to get the success message from the card
-    const handleMessages = (message) => {
-        console.log(`here is your message sir: ${message}`);
-    }
+  // TODO: find out how to get the success message from the card
+  const handleMessages = (message) => {
+    console.log(`here is your message sir: ${message}`);
+  };
 
-    const handleSave = (book) => {
-        axios
-            .post('/api/books', book)
-            .then(function() {
-                console.log('yay!');
-                setMessageState('yay! book saved successfully!');
-            })
-            .catch(function(err) {
-                console.log(err.message);
-                setMessageState('error! could not save book');
-            });
-    }
+  const handleSave = (book) => {
+    axios
+      .post('/api/books', book)
+      .then(function () {
+        console.log('yay!');
+        setMessageState('yay! book saved successfully!');
+      })
+      .catch(function (err) {
+        console.log(err.message);
+        setMessageState('error! could not save book');
+      });
+  };
 
-
-    return (
-        <div className="container">
-            <div className="jumbotron">
-                <h1 className="display-4">ReactReactGo</h1>
-                <p className="lead">Search for and save books of interest</p>
-                <p>{messageState}</p>
-                <hr className="my-4" />
-                <form onSubmit={handleFormSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="book-search">Search for a book</label>
-                        <input 
-                            type="text"
-                            className="form-control"
-                            id="book-search"
-                            name="searchName"
-                            value={searchTermState}
-                            onChange={event => setSearchTermState(event.target.value)}
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Search</button>
-                </form>
-            </div>
-            <ResultsBookList
-                handleMessages={handleMessages}
-                bookList={bookResultsState}
-                handleSave={handleSave}
+  return (
+    <div className='container'>
+      <div className='jumbotron'>
+        <h1 className='display-4'>ReactReactGo</h1>
+        <p className='lead'>Search for and save books of interest</p>
+        <p>{messageState}</p>
+        <hr className='my-4' />
+        <form onSubmit={handleFormSubmit}>
+          <div className='form-group'>
+            <label htmlFor='book-search'>Search for a book</label>
+            <input
+              type='text'
+              className='form-control'
+              id='book-search'
+              name='searchName'
+              value={searchTermState}
+              onChange={(event) => setSearchTermState(event.target.value)}
             />
-        </div>
-    );
+          </div>
+          <button type='submit' className='btn btn-primary'>
+            Search
+          </button>
+        </form>
+      </div>
+      <ResultsBookList
+        handleMessages={handleMessages}
+        bookList={bookResultsState}
+        handleSave={handleSave}
+      />
+    </div>
+  );
 }
