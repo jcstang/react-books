@@ -41,7 +41,7 @@ app.get('/api/saved-books', (req, res) => {
 
 app.post('/api/books', (req, res) => {
   const bookData = req.body;
-  console.log(bookData);
+  // console.log(bookData);
 
   Book
     .create(bookData)
