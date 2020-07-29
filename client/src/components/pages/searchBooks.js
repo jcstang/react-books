@@ -122,7 +122,8 @@ export default function SearchBooks(props) {
               id='book-search'
               name='searchName'
               value={searchTermState}
-              onChange={(event) => setSearchTermState(event.target.value)}
+              // onChange={(event) => setSearchTermState(event.target.value)}
+              onChange={(event) => searchTermHandler(event)}
             />
           </div>
           <button type='submit' className='btn btn-primary'>
