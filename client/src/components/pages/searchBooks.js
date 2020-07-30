@@ -21,71 +21,68 @@ export default function SearchBooks(props) {
     // goGetBookData();
   };
 
-  const goGetBookData = () => {
-    googleApis(searchTermState)
-      .then((bookResults) => {
-        let bookList = bookResults.data.items.map((item, index) => {
-          let imageToRender = '';
-          try {
-            imageToRender = item.volumeInfo.imageLinks.thumbnail;
-          } catch (error) {
-            imageToRender = defaultImageUrlState;
-            console.log(error);
-          }
+  const goGetBookData = async () => {
+    const searchResults = await googleApis(searchTermState);
 
-          return {
-            googleKey: item.id,
-            title: item.volumeInfo.title,
-            authors: ['JRR Tolkein'],
-            description: item.volumeInfo.description,
-            imageUrl: imageToRender,
-            bookUrl: item.volumeInfo.infoLink,
-          };
-        });
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    const listOfBooks = searchResults.data.items.map((item, index) => {
+      console.log(`thumbnail: ${item.volumeInfo.imageLinks.thumbnail}`);
+
+      let imageToRender = item.volumeInfo.imageLinks.thumbnail
+        ? item.volumeInfo.imageLinks.thumbnail
+        : defaultImageUrlState;
+
+      return {
+        googleKey: item.id,
+        title: item.volumeInfo.title,
+        authors: ['JRR Tokein'],
+        description: item.volumeInfo.description,
+        imageUrl: imageToRender,
+        bookUrl: item.volumeInfo.infoLink,
+      };
+    });
+    console.log('after the map');
+    setBookResultsState(listOfBooks);
+    console.log('after the set state');
   };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    // goGetBookData();
+    goGetBookData();
 
-    googleApis(searchTermState)
-      .then(function (bookResults) {
-        // const rawBookList = bookResults.data.items;
+    // googleApis(searchTermState)
+    //   .then(function (bookResults) {
+    //     // const rawBookList = bookResults.data.items;
 
-        let proposedBookList = bookResults.data.items.map(function (
-          item,
-          index
-        ) {
-          let imageToRender = '';
+    //     let proposedBookList = bookResults.data.items.map(function (
+    //       item,
+    //       index
+    //     ) {
+    //       let imageToRender = '';
 
-          try {
-            imageToRender = item.volumeInfo.imageLinks.thumbnail;
-          } catch (e) {
-            imageToRender = defaultImageUrlState;
-          }
+    //       try {
+    //         imageToRender = item.volumeInfo.imageLinks.thumbnail;
+    //       } catch (e) {
+    //         imageToRender = defaultImageUrlState;
+    //       }
 
-          // console.log(imageToRender);
+    //       // console.log(imageToRender);
 
-          return {
-            googleKey: item.id,
-            title: item.volumeInfo.title,
-            authors: ['JRR Tokein'],
-            description: item.volumeInfo.description,
-            imageUrl: imageToRender,
-            bookUrl: item.volumeInfo.infoLink,
-          };
-        });
+    //       return {
+    //         googleKey: item.id,
+    //         title: item.volumeInfo.title,
+    //         authors: ['JRR Tokein'],
+    //         description: item.volumeInfo.description,
+    //         imageUrl: imageToRender,
+    //         bookUrl: item.volumeInfo.infoLink,
+    //       };
+    //     });
 
-        setBookResultsState(proposedBookList);
-      })
-      .catch(function (err) {
-        console.log(`broke... ${err.message}`);
-      });
+    //     setBookResultsState(proposedBookList);
+    //   })
+    //   .catch(function (err) {
+    //     console.log(`broke... ${err.message}`);
+    //   });
   };
 
   // TODO: find out how to get the success message from the card
