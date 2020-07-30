@@ -29,7 +29,7 @@ export default function SearchBooks(props) {
     console.log('3. before the map');
     const listOfBooks = searchResults.data.items.map((item, index) => {
       // console.log(`thumbnail: ${item.volumeInfo.imageLinks.thumbnail}`);
-      console.log('3a. inside of the map');
+      // console.log('3a. inside of the map');
 
       let imageToRender = item.volumeInfo.imageLinks.thumbnail
         ? item.volumeInfo.imageLinks.thumbnail
@@ -44,6 +44,7 @@ export default function SearchBooks(props) {
         bookUrl: item.volumeInfo.infoLink,
       };
     });
+
     console.log('4. after the map');
     setBookResultsState(listOfBooks);
     console.log('5. after the set state');
@@ -53,40 +54,6 @@ export default function SearchBooks(props) {
     event.preventDefault();
 
     goGetBookData();
-
-    // googleApis(searchTermState)
-    //   .then(function (bookResults) {
-    //     // const rawBookList = bookResults.data.items;
-
-    //     let proposedBookList = bookResults.data.items.map(function (
-    //       item,
-    //       index
-    //     ) {
-    //       let imageToRender = '';
-
-    //       try {
-    //         imageToRender = item.volumeInfo.imageLinks.thumbnail;
-    //       } catch (e) {
-    //         imageToRender = defaultImageUrlState;
-    //       }
-
-    //       // console.log(imageToRender);
-
-    //       return {
-    //         googleKey: item.id,
-    //         title: item.volumeInfo.title,
-    //         authors: ['JRR Tokein'],
-    //         description: item.volumeInfo.description,
-    //         imageUrl: imageToRender,
-    //         bookUrl: item.volumeInfo.infoLink,
-    //       };
-    //     });
-
-    //     setBookResultsState(proposedBookList);
-    //   })
-    //   .catch(function (err) {
-    //     console.log(`broke... ${err.message}`);
-    //   });
   };
 
   // TODO: find out how to get the success message from the card
