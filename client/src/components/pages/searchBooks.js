@@ -6,49 +6,53 @@ import axios from 'axios';
 export default function SearchBooks(props) {
   // ** text from input and results that come back
   //const [ pageMessageState, setPageMessageState ] = useState('');
-  const [defaultImageUrlState] = useState(
-    'https://source.unsplash.com/sfL_QOnmy00/250x300'
-  );
+  //   const [defaultImageUrlState, setDefaultImgUrlState] = useState(
+  //     'https://source.unsplash.com/sfL_QOnmy00/250x300'
+  //   );
   const [searchTermState, setSearchTermState] = useState('');
   const [bookResultsState, setBookResultsState] = useState([]);
   const [messageState, setMessageState] = useState('');
 
+  const defaultImageUrl = 'https://source.unsplash.com/sfL_QOnmy00/250x300';
+
+  // const searchTermHandler = (event) => {
+  //   setSearchTermState(event.target.value);
+  //   // goGetBookData();
+  // };
+
+  const goGetBookData = async () => {
+    console.log('1. before the await');
+    const searchResults = await googleApis(searchTermState);
+    console.log('2. after the await');
+
+    console.log('3. before the map');
+    const listOfBooks = searchResults.data.items.map((item, index) => {
+      console.log(`thumbnail: ${item.volumeInfo.imageLinks.thumbnail}`);
+      // console.log('3a. inside of the map');
+
+      let imageToRender = item.volumeInfo.imageLinks.thumbnail
+        ? item.volumeInfo.imageLinks.thumbnail
+        : defaultImageUrl;
+
+      return {
+        googleKey: item.id,
+        title: item.volumeInfo.title,
+        authors: ['JRR Tokein'],
+        description: item.volumeInfo.description,
+        imageUrl: imageToRender,
+        bookUrl: item.volumeInfo.infoLink,
+      };
+    });
+
+    console.log('4. after the map');
+    setBookResultsState(listOfBooks);
+    console.log('5. after the set state');
+  };
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    googleApis(searchTermState)
-      .then(function (bookResults) {
-        // const rawBookList = bookResults.data.items;
-
-        let proposedBookList = bookResults.data.items.map(function (
-          item,
-          index
-        ) {
-          let imageToRender = '';
-
-          try {
-            imageToRender = item.volumeInfo.imageLinks.thumbnail;
-          } catch (e) {
-            imageToRender = defaultImageUrlState;
-          }
-
-          console.log(imageToRender);
-
-          return {
-            googleKey: item.id,
-            title: item.volumeInfo.title,
-            authors: ['JRR Tokein'],
-            description: item.volumeInfo.description,
-            imageUrl: imageToRender,
-            bookUrl: item.volumeInfo.infoLink,
-          };
-        });
-
-        setBookResultsState(proposedBookList);
-      })
-      .catch(function (err) {
-        console.log(`broke... ${err.message}`);
-      });
+    goGetBookData();
   };
 
   // TODO: find out how to get the success message from the card
@@ -86,6 +90,7 @@ export default function SearchBooks(props) {
               name='searchName'
               value={searchTermState}
               onChange={(event) => setSearchTermState(event.target.value)}
+              // onChange={(event) => searchTermHandler(event)}
             />
           </div>
           <button type='submit' className='btn btn-primary'>
