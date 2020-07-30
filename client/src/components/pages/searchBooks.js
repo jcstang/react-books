@@ -13,8 +13,7 @@ export default function SearchBooks(props) {
   const [bookResultsState, setBookResultsState] = useState([]);
   const [messageState, setMessageState] = useState('');
 
-  const defaultImageUrlState =
-    'https://source.unsplash.com/sfL_QOnmy00/250x300';
+  const defaultImageUrl = 'https://source.unsplash.com/sfL_QOnmy00/250x300';
 
   // const searchTermHandler = (event) => {
   //   setSearchTermState(event.target.value);
@@ -28,12 +27,12 @@ export default function SearchBooks(props) {
 
     console.log('3. before the map');
     const listOfBooks = searchResults.data.items.map((item, index) => {
-      // console.log(`thumbnail: ${item.volumeInfo.imageLinks.thumbnail}`);
+      console.log(`thumbnail: ${item.volumeInfo.imageLinks.thumbnail}`);
       // console.log('3a. inside of the map');
 
       let imageToRender = item.volumeInfo.imageLinks.thumbnail
         ? item.volumeInfo.imageLinks.thumbnail
-        : defaultImageUrlState;
+        : defaultImageUrl;
 
       return {
         googleKey: item.id,
