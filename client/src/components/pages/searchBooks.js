@@ -18,7 +18,7 @@ export default function SearchBooks(props) {
 
   const searchTermHandler = (event) => {
     setSearchTermState(event.target.value);
-    goGetBookData();
+    // goGetBookData();
   };
 
   const goGetBookData = () => {
@@ -51,41 +51,41 @@ export default function SearchBooks(props) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    goGetBookData();
+    // goGetBookData();
 
-    // googleApis(searchTermState)
-    //   .then(function (bookResults) {
-    //     // const rawBookList = bookResults.data.items;
+    googleApis(searchTermState)
+      .then(function (bookResults) {
+        // const rawBookList = bookResults.data.items;
 
-    //     let proposedBookList = bookResults.data.items.map(function (
-    //       item,
-    //       index
-    //     ) {
-    //       let imageToRender = '';
+        let proposedBookList = bookResults.data.items.map(function (
+          item,
+          index
+        ) {
+          let imageToRender = '';
 
-    //       try {
-    //         imageToRender = item.volumeInfo.imageLinks.thumbnail;
-    //       } catch (e) {
-    //         imageToRender = defaultImageUrlState;
-    //       }
+          try {
+            imageToRender = item.volumeInfo.imageLinks.thumbnail;
+          } catch (e) {
+            imageToRender = defaultImageUrlState;
+          }
 
-    //       // console.log(imageToRender);
+          // console.log(imageToRender);
 
-    //       return {
-    //         googleKey: item.id,
-    //         title: item.volumeInfo.title,
-    //         authors: ['JRR Tokein'],
-    //         description: item.volumeInfo.description,
-    //         imageUrl: imageToRender,
-    //         bookUrl: item.volumeInfo.infoLink,
-    //       };
-    //     });
+          return {
+            googleKey: item.id,
+            title: item.volumeInfo.title,
+            authors: ['JRR Tokein'],
+            description: item.volumeInfo.description,
+            imageUrl: imageToRender,
+            bookUrl: item.volumeInfo.infoLink,
+          };
+        });
 
-    //     setBookResultsState(proposedBookList);
-    //   })
-    //   .catch(function (err) {
-    //     console.log(`broke... ${err.message}`);
-    //   });
+        setBookResultsState(proposedBookList);
+      })
+      .catch(function (err) {
+        console.log(`broke... ${err.message}`);
+      });
   };
 
   // TODO: find out how to get the success message from the card
@@ -122,8 +122,8 @@ export default function SearchBooks(props) {
               id='book-search'
               name='searchName'
               value={searchTermState}
-              // onChange={(event) => setSearchTermState(event.target.value)}
-              onChange={(event) => searchTermHandler(event)}
+              onChange={(event) => setSearchTermState(event.target.value)}
+              // onChange={(event) => searchTermHandler(event)}
             />
           </div>
           <button type='submit' className='btn btn-primary'>
