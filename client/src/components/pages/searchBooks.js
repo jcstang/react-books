@@ -16,10 +16,10 @@ export default function SearchBooks(props) {
   const defaultImageUrlState =
     'https://source.unsplash.com/sfL_QOnmy00/250x300';
 
-  const searchTermHandler = (event) => {
-    setSearchTermState(event.target.value);
-    // goGetBookData();
-  };
+  // const searchTermHandler = (event) => {
+  //   setSearchTermState(event.target.value);
+  //   // goGetBookData();
+  // };
 
   const goGetBookData = async () => {
     console.log('1. before the await');
