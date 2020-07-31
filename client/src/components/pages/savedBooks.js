@@ -93,6 +93,7 @@ export default function SavedBooks(props) {
           key={index}
           mongoKey={book._id}
           bookTitle={book.title}
+          authors={book.authors}
           // imageUrl={book.imageUrl || defaultImageUrlState}
           imageUrl={book.imageUrl || savedBookState.defaultImgUrl}
           bookUrl={book.bookUrl}
