@@ -28,6 +28,8 @@ export default function SavedBooks(props) {
     booksFromMongo: [],
     messageForUser: '',
   };
+  // FIXME: problem: error on saved page
+
   // const [defaultImageUrlState, setDefaultImgUrlState] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
   //   const [booksFromDBState, setBooksFromDBState] = useState([]);
   //   const [messageState, setMessageState] = useState('');
