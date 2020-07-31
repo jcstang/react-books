@@ -27,17 +27,26 @@ export default function SearchBooks(props) {
 
     console.log('3. before the map');
     const listOfBooks = searchResults.data.items.map((item, index) => {
+      let bookAuthors = [];
+      let imageToRender = defaultImageUrl;
+
       console.log(`thumbnail: ${item.volumeInfo.imageLinks.thumbnail}`);
       // console.log('3a. inside of the map');
+      console.log(item);
 
-      let imageToRender = item.volumeInfo.imageLinks.thumbnail
-        ? item.volumeInfo.imageLinks.thumbnail
-        : defaultImageUrl;
+      // let imageToRender = item.volumeInfo.imageLinks.thumbnail
+      //   ? item.volumeInfo.imageLinks.thumbnail
+      //   : defaultImageUrl;
+      if (item.volumeInfo.imageLinks.thumbnail) {
+        imageToRender = item.volumeInfo.imageLinks.thumbnail;
+      }
+
+      bookAuthors = item.volumeInfo.authors;
 
       return {
         googleKey: item.id,
         title: item.volumeInfo.title,
-        authors: ['JRR Tokein'],
+        authors: item.volumeInfo.authors,
         description: item.volumeInfo.description,
         imageUrl: imageToRender,
         bookUrl: item.volumeInfo.infoLink,
