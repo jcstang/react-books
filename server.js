@@ -64,7 +64,8 @@ app.delete('/api/books/:id', (req, res) => {
   const mongoKey = req.params.id;
 
   Book
-    .remove({
+    // .remove({
+    .deleteOne({
       _id: mongoKey
     })
     .then(function(data) {
