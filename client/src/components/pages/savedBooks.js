@@ -40,18 +40,22 @@ export default function SavedBooks(props) {
   );
 
   const goGetFreshData = () => {
-    axios
-      .get('/api/saved-books')
-      .then(function (documentsFromMongo) {
-        // setBooksFromDBState(documentsFromMongo.data);
-        saveBooksDispatch({
-          type: 'mongo',
-          docsOfBooks: documentsFromMongo.data,
+    try {
+      axios
+        .get('/api/saved-books')
+        .then(function (documentsFromMongo) {
+          // setBooksFromDBState(documentsFromMongo.data);
+          saveBooksDispatch({
+            type: 'mongo',
+            docsOfBooks: documentsFromMongo.data,
+          });
+        })
+        .catch(function (err) {
+          console.log(err.message);
         });
-      })
-      .catch(function (err) {
-        console.log(err.message);
-      });
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const handleDelete = (book_id) => {
