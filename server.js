@@ -1,20 +1,25 @@
 const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
+const connectDB = require('./config/db');
 const app = express();
 
 const mongoose = require('mongoose');
 
 const Book = require('./models/Books');
 
-let MONGODB_URI = process.env.NODE_ENV 
-  ? process.env.MONGODB_URI 
-  : "mongodb://localhost/google_books";
+// ** Connect Database **
+// =============================================================
+connectDB()
 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+// let MONGODB_URI = process.env.NODE_ENV 
+//   ? process.env.MONGODB_URI 
+//   : "mongodb://localhost/google_books";
+
+// mongoose.connect(MONGODB_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
 // mongoose.connect("mongodb://localhost/google_books", { useNewUrlParser: true });
 
 // Define middleware here
