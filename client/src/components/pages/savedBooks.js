@@ -32,6 +32,7 @@ export default function SavedBooks(props) {
   //   const [booksFromDBState, setBooksFromDBState] = useState([]);
   //   const [messageState, setMessageState] = useState('');
   const setMessageState = useState('')[1];
+  const hasBeenCalled = false;
 
   // REDUCER
   const [savedBookState, saveBooksDispatch] = useReducer(
@@ -39,22 +40,35 @@ export default function SavedBooks(props) {
     initialState
   );
 
+  const goGetBooks = () => {
+    axios
+      .get('/api/saved-books')
+      .then((docs) => {
+        return docs.data
+      })
+      .catch((err) => console.log(err.message));
+  }
+
   const goGetFreshData = () => {
-    try {
-      axios
-        .get('/api/saved-books')
-        .then(function (documentsFromMongo) {
-          // setBooksFromDBState(documentsFromMongo.data);
-          saveBooksDispatch({
-            type: 'mongo',
-            docsOfBooks: documentsFromMongo.data,
+    if (!hasBeenCalled) {
+      try {
+        axios
+          .get('/api/saved-books')
+          .then(function (documentsFromMongo) {
+            // setBooksFromDBState(documentsFromMongo.data);
+            saveBooksDispatch({
+              type: 'mongo',
+              docsOfBooks: documentsFromMongo.data,
+            });
+          })
+          .catch(function (err) {
+            console.log(err.message);
           });
-        })
-        .catch(function (err) {
-          console.log(err.message);
-        });
-    } catch (err) {
-      console.log(err.message);
+      } catch (err) {
+        console.log(err.message);
+      }
+    } else {
+      hasBeenCalled = true;
     }
   };
 
