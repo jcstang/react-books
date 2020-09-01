@@ -32,7 +32,7 @@ export default function SavedBooks(props) {
   //   const [booksFromDBState, setBooksFromDBState] = useState([]);
   //   const [messageState, setMessageState] = useState('');
   const setMessageState = useState('')[1];
-  const hasBeenCalled = false;
+  const [ savedBooks, setSavedBooks ] = useState(initialState);
 
   // REDUCER
   const [savedBookState, saveBooksDispatch] = useReducer(
@@ -41,7 +41,19 @@ export default function SavedBooks(props) {
   );
 
   useEffect(() => {
-    goGetFreshData();
+    axios
+      .get('/api/saved-books')
+      .then(function (documentsFromMongo) {
+        // setBooksFromDBState(documentsFromMongo.data);
+        setSavedBooks(documentsFromMongo.data);
+        // saveBooksDispatch({
+        //   type: 'mongo',
+        //   docsOfBooks: documentsFromMongo.data,
+        // });
+      })
+      .catch(function (err) {
+        console.log(err.message);
+      });
   });
 
   // const goGetBooks = () => {
@@ -53,28 +65,9 @@ export default function SavedBooks(props) {
   //     .catch((err) => console.log(err.message));
   // }
 
-  const goGetFreshData = () => {
-    if (!hasBeenCalled) {
-      try {
-        axios
-          .get('/api/saved-books')
-          .then(function (documentsFromMongo) {
-            // setBooksFromDBState(documentsFromMongo.data);
-            saveBooksDispatch({
-              type: 'mongo',
-              docsOfBooks: documentsFromMongo.data,
-            });
-          })
-          .catch(function (err) {
-            console.log(err.message);
-          });
-      } catch (err) {
-        console.log(err.message);
-      }
-    } else {
-      hasBeenCalled = true;
-    }
-  };
+  // const goGetFreshData = () => {
+  //     return axios.get('/api/saved-books')
+  // };
 
   const handleDelete = (book_id) => {
     const deletePath = `/api/books/${book_id}`;
@@ -106,10 +99,10 @@ export default function SavedBooks(props) {
       <div className='jumbotron'>
         <h1 className='display-4'>ReactReactGo</h1>
         <p className='lead'>Search for and save books of interest</p>
-        <p>{savedBookState.messageForUser}</p>
+        <p>{savedBooks.messageForUser}</p>
         <hr className='my-4' />
       </div>
-      {savedBookState.booksFromMongo.map((book, index) => (
+      {savedBooks.booksFromMongo.map((book, index) => (
         <BookListCard
           key={index}
           mongoKey={book._id}
