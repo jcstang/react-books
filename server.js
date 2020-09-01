@@ -12,16 +12,6 @@ const Book = require('./models/Books');
 // =============================================================
 connectDB()
 
-// let MONGODB_URI = process.env.NODE_ENV 
-//   ? process.env.MONGODB_URI 
-//   : "mongodb://localhost/google_books";
-
-// mongoose.connect(MONGODB_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
-// mongoose.connect("mongodb://localhost/google_books", { useNewUrlParser: true });
-
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -37,6 +27,8 @@ app.get('/api/saved-books', (req, res) => {
   Book
     .find({})
     .then(function (data) {
+      // FIXME: problem: run away diesel!!!, outcome: only be called on page load?
+      console.log('why am I being called so much??????????!!!');
       res.status(200).json(data);
     })
     .catch(function() {
@@ -46,7 +38,7 @@ app.get('/api/saved-books', (req, res) => {
 
 app.post('/api/books', (req, res) => {
   const bookData = req.body;
-  // console.log(bookData);
+  console.log(bookData);
 
   Book
     .create(bookData)

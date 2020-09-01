@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import BookListCard from '../BookListCard';
 import axios from 'axios';
 
@@ -32,6 +32,9 @@ export default function SavedBooks(props) {
   //   const [booksFromDBState, setBooksFromDBState] = useState([]);
   //   const [messageState, setMessageState] = useState('');
   const setMessageState = useState('')[1];
+  const [ savedBooks, setSavedBooks ] = useState([]);
+  const [ userMessage, setUserMessage ] = useState('');
+  const [ defaultImgUrl] = useState('https://source.unsplash.com/sfL_QOnmy00/250x300');
 
   // REDUCER
   const [savedBookState, saveBooksDispatch] = useReducer(
@@ -39,24 +42,33 @@ export default function SavedBooks(props) {
     initialState
   );
 
-  const goGetFreshData = () => {
-    try {
-      axios
-        .get('/api/saved-books')
+  const handleStartData = () => {
+    setTimeout(() => {
+      axios.get('/api/saved-books')
         .then(function (documentsFromMongo) {
-          // setBooksFromDBState(documentsFromMongo.data);
-          saveBooksDispatch({
-            type: 'mongo',
-            docsOfBooks: documentsFromMongo.data,
-          });
+          // setSavedBooks(documentsFromMongo.data);
+          console.log('inside thingy');
+          setSavedBooks(documentsFromMongo.data);
         })
         .catch(function (err) {
           console.log(err.message);
         });
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
+    }, 1000);
+  }
+
+  useEffect(() => {
+    console.log('how often do I get printed?');
+    handleStartData();
+
+    // axios
+    //   .get('/api/saved-books')
+    //   .then(function (documentsFromMongo) {
+    //     // setSavedBooks(documentsFromMongo.data);
+    //   })
+    //   .catch(function (err) {
+    //     console.log(err.message);
+    //   });
+  });
 
   const handleDelete = (book_id) => {
     const deletePath = `/api/books/${book_id}`;
@@ -80,23 +92,24 @@ export default function SavedBooks(props) {
     };
   };
 
-  goGetFreshData();
+  // trying useEffect instead
+  // goGetFreshData();
 
   return (
     <div className='container'>
       <div className='jumbotron'>
         <h1 className='display-4'>ReactReactGo</h1>
         <p className='lead'>Search for and save books of interest</p>
-        <p>{savedBookState.messageForUser}</p>
+        <p>{savedBooks.messageForUser}</p>
         <hr className='my-4' />
       </div>
-      {savedBookState.booksFromMongo.map((book, index) => (
+      {savedBooks.map((book, index) => (
         <BookListCard
           key={index}
           mongoKey={book._id}
           bookTitle={book.title}
           // imageUrl={book.imageUrl || defaultImageUrlState}
-          imageUrl={book.imageUrl || savedBookState.defaultImgUrl}
+          imageUrl={book.imageUrl || defaultImgUrl }
           bookUrl={book.bookUrl}
           description={book.description}
           actionItemText={getActionItem().text}
