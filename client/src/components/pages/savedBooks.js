@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import BookListCard from '../BookListCard';
 import axios from 'axios';
 
@@ -40,14 +40,18 @@ export default function SavedBooks(props) {
     initialState
   );
 
-  const goGetBooks = () => {
-    axios
-      .get('/api/saved-books')
-      .then((docs) => {
-        return docs.data
-      })
-      .catch((err) => console.log(err.message));
-  }
+  useEffect(() => {
+    goGetFreshData();
+  });
+
+  // const goGetBooks = () => {
+  //   axios
+  //     .get('/api/saved-books')
+  //     .then((docs) => {
+  //       return docs.data
+  //     })
+  //     .catch((err) => console.log(err.message));
+  // }
 
   const goGetFreshData = () => {
     if (!hasBeenCalled) {
@@ -94,7 +98,8 @@ export default function SavedBooks(props) {
     };
   };
 
-  goGetFreshData();
+  // trying useEffect instead
+  // goGetFreshData();
 
   return (
     <div className='container'>
