@@ -32,7 +32,9 @@ export default function SavedBooks(props) {
   //   const [booksFromDBState, setBooksFromDBState] = useState([]);
   //   const [messageState, setMessageState] = useState('');
   const setMessageState = useState('')[1];
-  const [ savedBooks, setSavedBooks ] = useState(initialState);
+  const [ savedBooks, setSavedBooks ] = useState([]);
+  const [ userMessage, setUserMessage ] = useState('');
+  const [ defaultImgUrl] = useState('https://source.unsplash.com/sfL_QOnmy00/250x300');
 
   // REDUCER
   const [savedBookState, saveBooksDispatch] = useReducer(
@@ -40,34 +42,33 @@ export default function SavedBooks(props) {
     initialState
   );
 
+  const handleStartData = () => {
+    setTimeout(() => {
+      axios.get('/api/saved-books')
+        .then(function (documentsFromMongo) {
+          // setSavedBooks(documentsFromMongo.data);
+          console.log('inside thingy');
+          setSavedBooks(documentsFromMongo.data);
+        })
+        .catch(function (err) {
+          console.log(err.message);
+        });
+    }, 1000);
+  }
+
   useEffect(() => {
-    axios
-      .get('/api/saved-books')
-      .then(function (documentsFromMongo) {
-        // setBooksFromDBState(documentsFromMongo.data);
-        setSavedBooks(documentsFromMongo.data);
-        // saveBooksDispatch({
-        //   type: 'mongo',
-        //   docsOfBooks: documentsFromMongo.data,
-        // });
-      })
-      .catch(function (err) {
-        console.log(err.message);
-      });
+    console.log('how often do I get printed?');
+    handleStartData();
+
+    // axios
+    //   .get('/api/saved-books')
+    //   .then(function (documentsFromMongo) {
+    //     // setSavedBooks(documentsFromMongo.data);
+    //   })
+    //   .catch(function (err) {
+    //     console.log(err.message);
+    //   });
   });
-
-  // const goGetBooks = () => {
-  //   axios
-  //     .get('/api/saved-books')
-  //     .then((docs) => {
-  //       return docs.data
-  //     })
-  //     .catch((err) => console.log(err.message));
-  // }
-
-  // const goGetFreshData = () => {
-  //     return axios.get('/api/saved-books')
-  // };
 
   const handleDelete = (book_id) => {
     const deletePath = `/api/books/${book_id}`;
@@ -102,13 +103,13 @@ export default function SavedBooks(props) {
         <p>{savedBooks.messageForUser}</p>
         <hr className='my-4' />
       </div>
-      {savedBooks.booksFromMongo.map((book, index) => (
+      {savedBooks.map((book, index) => (
         <BookListCard
           key={index}
           mongoKey={book._id}
           bookTitle={book.title}
           // imageUrl={book.imageUrl || defaultImageUrlState}
-          imageUrl={book.imageUrl || savedBookState.defaultImgUrl}
+          imageUrl={book.imageUrl || defaultImgUrl }
           bookUrl={book.bookUrl}
           description={book.description}
           actionItemText={getActionItem().text}
