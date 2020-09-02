@@ -44,6 +44,7 @@ export default function SavedBooks(props) {
 
   const handleStartData = () => {
     setTimeout(() => {
+
       axios.get('/api/saved-books')
         .then(function (documentsFromMongo) {
           // setSavedBooks(documentsFromMongo.data);
@@ -53,6 +54,7 @@ export default function SavedBooks(props) {
         .catch(function (err) {
           console.log(err.message);
         });
+
     }, 1000);
   }
 
@@ -68,7 +70,7 @@ export default function SavedBooks(props) {
     //   .catch(function (err) {
     //     console.log(err.message);
     //   });
-  });
+  }, []);
 
   const handleDelete = (book_id) => {
     const deletePath = `/api/books/${book_id}`;
