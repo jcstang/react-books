@@ -115,6 +115,7 @@ export default function SavedBooks(props) {
           imageUrl={book.imageUrl || defaultImgUrl }
           bookUrl={book.bookUrl}
           description={book.description}
+          authors={book.authors}
           actionItemText={getActionItem().text}
           actionItemFormat={getActionItem().format}
           actionItemMethod={handleDelete}

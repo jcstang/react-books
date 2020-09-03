@@ -63,10 +63,10 @@ export default function BookListCard(props) {
       <div className='row'>
         <div className='card-body col-3'>
           <img src={props.imageUrl} alt='book cover' />
+          <p className='author-list'>{props.authors}</p>
         </div>
         <div className='col-9 card-body align-self-end details-wrapper'>
           <p>{props.description}</p>
-          <p className='author-list'>{props.authors}</p>
         </div>
       </div>
     </div>
