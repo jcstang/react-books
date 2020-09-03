@@ -48,7 +48,7 @@ export default function SavedBooks(props) {
       axios.get('/api/saved-books')
         .then(function (documentsFromMongo) {
           // setSavedBooks(documentsFromMongo.data);
-          console.log('inside thingy');
+          // console.log('inside thingy');
           setSavedBooks(documentsFromMongo.data);
         })
         .catch(function (err) {
@@ -59,7 +59,7 @@ export default function SavedBooks(props) {
   }
 
   useEffect(() => {
-    console.log('how often do I get printed?');
+    // console.log('how often do I get printed?');
     handleStartData();
 
     // axios
@@ -71,6 +71,7 @@ export default function SavedBooks(props) {
     //     console.log(err.message);
     //   });
   }, []);
+  // ^^ this prevents infinite loop. after this do [options] nothing.
 
   const handleDelete = (book_id) => {
     const deletePath = `/api/books/${book_id}`;
@@ -114,6 +115,7 @@ export default function SavedBooks(props) {
           imageUrl={book.imageUrl || defaultImgUrl }
           bookUrl={book.bookUrl}
           description={book.description}
+          authors={book.authors}
           actionItemText={getActionItem().text}
           actionItemFormat={getActionItem().format}
           actionItemMethod={handleDelete}

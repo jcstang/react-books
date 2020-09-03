@@ -37,7 +37,7 @@ export default function SearchBooks(props) {
       return {
         googleKey: item.id,
         title: item.volumeInfo.title,
-        authors: ['JRR Tokein'],
+        authors: item.volumeInfo.authors,
         description: item.volumeInfo.description,
         imageUrl: imageToRender,
         bookUrl: item.volumeInfo.infoLink,

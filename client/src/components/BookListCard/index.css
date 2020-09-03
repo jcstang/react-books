@@ -1,0 +1,9 @@
+.details-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-list {
+  justify-content: right;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
