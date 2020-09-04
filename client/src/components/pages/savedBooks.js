@@ -1,46 +1,46 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookListCard from '../BookListCard';
 import axios from 'axios';
 
 // REDUCER
-const savedBooksReducer = (state, action) => {
-  switch (action.type) {
-    case 'mongo':
-      return {
-        ...state,
-        booksFromMongo: action.docsOfBooks,
-      };
-    case 'set-message':
-      return {
-        ...state,
-        messageForUser: action.message,
-      };
-    default:
-      break;
-  }
+// const savedBooksReducer = (state, action) => {
+//   switch (action.type) {
+//     case 'mongo':
+//       return {
+//         ...state,
+//         booksFromMongo: action.docsOfBooks,
+//       };
+//     case 'set-message':
+//       return {
+//         ...state,
+//         messageForUser: action.message,
+//       };
+//     default:
+//       break;
+//   }
 
-  return state;
-};
+//   return state;
+// };
 
 export default function SavedBooks(props) {
-  const initialState = {
-    defaultImgUrl: 'https://source.unsplash.com/sfL_QOnmy00/250x300',
-    booksFromMongo: [],
-    messageForUser: '',
-  };
+  // const initialState = {
+  //   defaultImgUrl: 'https://source.unsplash.com/sfL_QOnmy00/250x300',
+  //   booksFromMongo: [],
+  //   messageForUser: '',
+  // };
   // const [defaultImageUrlState, setDefaultImgUrlState] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
   //   const [booksFromDBState, setBooksFromDBState] = useState([]);
   //   const [messageState, setMessageState] = useState('');
   const setMessageState = useState('')[1];
   const [ savedBooks, setSavedBooks ] = useState([]);
-  const [ userMessage, setUserMessage ] = useState('');
+  // const [ userMessage, setUserMessage ] = useState('');
   const [ defaultImgUrl] = useState('https://source.unsplash.com/sfL_QOnmy00/250x300');
 
   // REDUCER
-  const [savedBookState, saveBooksDispatch] = useReducer(
-    savedBooksReducer,
-    initialState
-  );
+  // const [savedBookState, saveBooksDispatch] = useReducer(
+  //   savedBooksReducer,
+  //   initialState
+  // );
 
   const handleStartData = () => {
     setTimeout(() => {
@@ -119,7 +119,7 @@ export default function SavedBooks(props) {
           actionItemText={getActionItem().text}
           actionItemFormat={getActionItem().format}
           actionItemMethod={handleDelete}
-          dispatch={saveBooksDispatch}
+          // dispatch={saveBooksDispatch}
         />
       ))}
     </div>

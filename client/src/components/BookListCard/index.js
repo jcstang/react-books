@@ -39,12 +39,12 @@ export default function BookListCard(props) {
               href={props.bookUrl}
               className='btn btn-warning'
               target='_blank'
-              onClick={() =>
-                props.dispatch({
-                  type: 'set-message',
-                  message: 'user has clicked the view button',
-                })
-              }
+              // onClick={() =>
+              //   props.dispatch({
+              //     type: 'set-message',
+              //     message: 'user has clicked the view button',
+              //   })
+              // }
               rel='noopener noreferrer'
             >
               View
