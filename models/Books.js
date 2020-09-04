@@ -7,8 +7,11 @@ const BookSchema = new Schema({
     title: String,
     authors: [String],
     description: String,
+    authors: [String],
     imageUrl: String,
-    bookUrl: String
+    bookUrl: String,
+    publishedDate: Date,
+    publisher: String
 });
 
 const Book = mongoose.model('books', BookSchema);
