@@ -1,22 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 
 function AlertMessage(props) {
   const isMessageDisplayed = props.visible;
+  const messageText = props.message;
+  // const [showMessage, setShowMessage] = useState(false);
 
   if (isMessageDisplayed) {
     return (
       <Alert
-        variant={props.variant} 
+        variant={props.variant}
         style={{
           // postion: 'absolute',
-          position: 'sticky',
-          top: 0,
-          zIndex: -1
+          // position: 'absolute',
+          // top: 0,
+          // zIndex: -10,
           // right: 0,
+          position: '-webkit-sticky',
+          position: 'sticky',
+          // position: 'absolute',
+          top: 0,
+          zIndex: 2,
         }}
       >
-        Book successfully saved!
+        {messageText}
       </Alert>
     );
     

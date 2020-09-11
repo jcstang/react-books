@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BookListCard from '../BookListCard';
 import axios from 'axios';
+import AlertMessage from '../AlertMessage/AlertMessage';
 
 // REDUCER
 // const savedBooksReducer = (state, action) => {
@@ -31,7 +32,10 @@ export default function SavedBooks(props) {
   // const [defaultImageUrlState, setDefaultImgUrlState] = useState("https://source.unsplash.com/sfL_QOnmy00/250x300");
   //   const [booksFromDBState, setBooksFromDBState] = useState([]);
   //   const [messageState, setMessageState] = useState('');
-  const setMessageState = useState('')[1];
+  // const setMessageState = useState('')[1];
+  const [ messageState, setMessageState ] = useState('');
+  const [ displayMessageState, setDisplayMessageState ] = useState(false);
+
   const [ savedBooks, setSavedBooks ] = useState([]);
   // const [ userMessage, setUserMessage ] = useState('');
   const [ defaultImgUrl] = useState('https://source.unsplash.com/sfL_QOnmy00/250x300');
@@ -74,15 +78,23 @@ export default function SavedBooks(props) {
   // ^^ this prevents infinite loop. after this do [options] nothing.
 
   const handleDelete = (book_id) => {
+    console.log(`this is the book ID ${book_id}`);
     const deletePath = `/api/books/${book_id}`;
     axios
       .delete(deletePath)
       .then((result) => {
-        // console.log(result);
+        console.log(result.status);
+        setDisplayMessageState(true);
+        setTimeout(() => setDisplayMessageState(false), 3500);
         setMessageState('yay! book deleted successfully!');
+        // setSavedBooks(...savedBooks);
+        handleStartData();
       })
       .catch((err) => {
         console.log(err.message);
+
+        setDisplayMessageState(true);
+        setTimeout(() => setDisplayMessageState(false), 3500);
         setMessageState('error! could not delete the book');
       });
   };
@@ -106,7 +118,12 @@ export default function SavedBooks(props) {
         <p>{savedBooks.messageForUser}</p>
         <hr className='my-4' />
       </div>
-      {savedBooks.map((book, index) => (
+      <AlertMessage 
+        visible={displayMessageState}
+        variant='success'
+        message={messageState}
+      />
+      { savedBooks.map((book, index) => (
         <BookListCard
           key={index}
           mongoKey={book._id}

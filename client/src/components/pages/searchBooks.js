@@ -14,6 +14,7 @@ export default function SearchBooks(props) {
   const [searchTermState, setSearchTermState] = useState('');
   const [bookResultsState, setBookResultsState] = useState([]);
   const [messageState, setMessageState] = useState('');
+  const [variantText, setVariantText] = useState('');
   const [isMessageDisplayed, setIsMessageDisplayed] = useState(false);
 
   const defaultImageUrl = 'https://source.unsplash.com/sfL_QOnmy00/250x300';
@@ -61,13 +62,21 @@ export default function SearchBooks(props) {
       .post('/api/books', book)
       .then(function () {
         console.log('yay!');
-        setMessageState('yay! book saved successfully!');
+        // setMessageState('yay! book saved successfully!');
         setIsMessageDisplayed(true);
-        setTimeout(() => setIsMessageDisplayed(false), 3000)
+        setTimeout(() => setIsMessageDisplayed(false), 3500);
+        // TODO: display happy message
+        setMessageState('Success, Book saved to your list.');
+        setVariantText('success');
       })
       .catch(function (err) {
         console.log(err.message);
-        setMessageState('error! could not save book');
+        setIsMessageDisplayed(true);
+        setTimeout(() => setIsMessageDisplayed(false), 3500);
+        setMessageState(err.message);
+        setVariantText('danger');
+        // TODO: display sad message
+        // setMessageState('Ooops...could not save book. Maybe the book was no good?');
       });
   };
 
@@ -97,8 +106,12 @@ export default function SearchBooks(props) {
         </form>
       </div>
       {/* TODO: trying to display the message at your current view top right */}
-      <AlertMessage visible={isMessageDisplayed} variant='success' />
-      <AlertToast />
+      <AlertMessage 
+        visible={isMessageDisplayed} 
+        variant={variantText}
+        message={messageState}
+      />
+      {/* <AlertToast /> */}
       <ResultsBookList
         handleMessages={handleMessages}
         bookList={bookResultsState}
