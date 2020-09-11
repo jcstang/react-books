@@ -21,14 +21,9 @@ export default function SearchBooks(props) {
   // };
 
   const goGetBookData = async () => {
-    console.log('1. before the await');
     const searchResults = await googleApis(searchTermState);
-    console.log('2. after the await');
 
-    console.log('3. before the map');
     const listOfBooks = searchResults.data.items.map((item, index) => {
-      console.log(`thumbnail: ${item.volumeInfo.imageLinks.thumbnail}`);
-      // console.log('3a. inside of the map');
 
       let imageToRender = item.volumeInfo.imageLinks.thumbnail
         ? item.volumeInfo.imageLinks.thumbnail
@@ -44,9 +39,7 @@ export default function SearchBooks(props) {
       };
     });
 
-    console.log('4. after the map');
     setBookResultsState(listOfBooks);
-    console.log('5. after the set state');
   };
 
   const handleFormSubmit = (event) => {

@@ -6,8 +6,6 @@ export default function BookListCard(props) {
 
   const decideAction = (event) => {
     event.preventDefault();
-    // console.log('decideAction');
-    // console.log(props.actionItemMethod);
 
     if (props.actionItemText === 'Save') {
       props.actionItemMethod(props.bookObject);
@@ -15,12 +13,6 @@ export default function BookListCard(props) {
       props.actionItemMethod(props.mongoKey);
     }
   };
-
-  // const deleteSomething = (event) => {
-  //     event.preventDefault();
-
-  //     props.handleDelete(props.mongoKey);
-  // }
 
   return (
     <div className='container-fluid card'>

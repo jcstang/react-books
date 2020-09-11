@@ -27,8 +27,6 @@ app.get('/api/saved-books', (req, res) => {
   Book
     .find({})
     .then(function (data) {
-      // FIXME: problem: run away diesel!!!, outcome: only be called on page load?
-      console.log('why am I being called so much??????????!!!');
       res.status(200).json(data);
     })
     .catch(function() {
