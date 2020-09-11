@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import ResultsBookList from '../ResultsBookList';
 import googleApis from '../../utils/googleApis';
 import axios from 'axios';
+import AlertMessage from '../AlertMessage/AlertMessage';
+import AlertToast from '../AlertToast';
 
 export default function SearchBooks(props) {
   // ** text from input and results that come back
@@ -12,6 +14,7 @@ export default function SearchBooks(props) {
   const [searchTermState, setSearchTermState] = useState('');
   const [bookResultsState, setBookResultsState] = useState([]);
   const [messageState, setMessageState] = useState('');
+  const [isMessageDisplayed, setIsMessageDisplayed] = useState(false);
 
   const defaultImageUrl = 'https://source.unsplash.com/sfL_QOnmy00/250x300';
 
@@ -59,6 +62,8 @@ export default function SearchBooks(props) {
       .then(function () {
         console.log('yay!');
         setMessageState('yay! book saved successfully!');
+        setIsMessageDisplayed(true);
+        setTimeout(() => setIsMessageDisplayed(false), 3000)
       })
       .catch(function (err) {
         console.log(err.message);
@@ -71,7 +76,7 @@ export default function SearchBooks(props) {
       <div className='jumbotron'>
         <h1 className='display-4'>ReactReactGo</h1>
         <p className='lead'>Search for and save books of interest</p>
-        <p>{messageState}</p>
+        {/* <p>{messageState}</p> */}
         <hr className='my-4' />
         <form onSubmit={handleFormSubmit}>
           <div className='form-group'>
@@ -91,6 +96,9 @@ export default function SearchBooks(props) {
           </button>
         </form>
       </div>
+      {/* TODO: trying to display the message at your current view top right */}
+      <AlertMessage visible={isMessageDisplayed} variant='success' />
+      <AlertToast />
       <ResultsBookList
         handleMessages={handleMessages}
         bookList={bookResultsState}
