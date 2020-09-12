@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import SearchBooks from './components/pages/searchBooks';
-import SavedBooks from './components/pages/savedBooks';
+// import SearchBooks from './components/pages/searchBooks';
+// import SavedBooks from './components/pages/savedBooks';
+import SavedBooks from './pages/savedBooks';
+import SearchBooks from './pages/searchBooks';
 import Navbar from './components/Navbar';
 
 // const appReducer = (state, action) => {

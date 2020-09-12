@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import ResultsBookList from '../ResultsBookList';
-import googleApis from '../../utils/googleApis';
+// import ResultsBookList from '../ResultsBookList';
+import ResultsBookList from '../components/ResultsBookList';
+// import googleApis from '../../utils/googleApis';
+import googleApis from '../utils/googleApis';
 import axios from 'axios';
-import AlertMessage from '../AlertMessage/AlertMessage';
-import AlertToast from '../AlertToast';
+import AlertMessage from '../components/AlertMessage/AlertMessage';
 
 export default function SearchBooks(props) {
   // ** text from input and results that come back

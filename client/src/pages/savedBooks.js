@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import BookListCard from '../BookListCard';
+import BookListCard from '../components/BookListCard';
 import axios from 'axios';
-import AlertMessage from '../AlertMessage/AlertMessage';
+import AlertMessage from '../components/AlertMessage/AlertMessage';
 
 // REDUCER
 // const savedBooksReducer = (state, action) => {
