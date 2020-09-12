@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+// TODO: wire up data to this schema. ie publisher data.
+
 const BookSchema = new Schema({
     googleKey: String,
     title: String,
