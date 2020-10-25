@@ -6,10 +6,10 @@
   "proxy": "http://localhost:3001",
   "dependencies": {
     "axios": "^0.19.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3"
+    "react-scripts": "^3.4.4"
   },
   "scripts": {
     "start": "react-scripts start",
